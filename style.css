@@ -1,0 +1,71 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: white;
+    color: black;
+}
+
+#worksheet {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.problem {
+    text-align: right;
+    font-family: monospace;
+    font-size: 18px;
+    width: 80px; /* Fixed width for each problem */
+}
+
+.problem {
+    text-align: right;
+    font-family: monospace;
+    font-size: 18px;
+    width: 80px; /* Fixed width for each problem */
+}
+
+.problem p {
+    margin: 5px 0;
+}
+
+.operation-line {
+    display: flex; /* Align + sign and line in same row */
+    align-items: center;
+}
+
+.operation {
+    width: 20px; /* Fixed width for + sign */
+    margin-right: 5px; /* Space between + and line */
+}
+
+.line {
+    border: none;
+    border-top: 1px solid black;
+    margin: 5px 0;
+    width: 55px; /* Adjusted to fit beside + sign */
+}
+
+.sum {
+    height: 20px; /* Space for student to write */
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+@media print {
+    .buttons {
+        display: none;
+    }
+    .problem {
+        page-break-inside: avoid; /* Avoid breaking problems across pages */
+    }
+}
