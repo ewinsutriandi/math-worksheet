@@ -7,3 +7,4 @@ Download and just open the html files for use
 For those interested in the prompts for generating this, you can find the full conversation at:  
 * [arithmetics](https://grok.com/share/c2hhcmQtMw%3D%3D_792f6f09-2b71-4069-960d-0ad00c1f295e)
 * [analog clock](https://grok.com/share/c2hhcmQtMw%3D%3D_a9db0cbb-bb7f-412d-9894-b9a577cb0bf3)
+* [proper fraction](https://grok.com/share/c2hhcmQtMw%3D%3D_63c2a6a6-347f-4565-b065-22bab07330fd)
