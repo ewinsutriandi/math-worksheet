@@ -2,9 +2,9 @@
 
 A minimalist, printer-friendly math worksheet generator for elementary students, built as a single-page application (SPA). This tool is designed to help parents and teachers in Indonesia generate high-quality practice problems for foundational math topics.
 
-**🌐 Live Demo: [ewinsutriandi.github.io/math-worksheet/](https://ewinsutriandi.github.io/math-worksheet/)**
+**Live Demo: [ewinsutriandi.github.io/math-worksheet/](https://ewinsutriandi.github.io/math-worksheet/)**
 
-## 🚀 Key Features
+## Key Features
 
 - **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Porogapit" (long division) support.
     - **Dasar (Basic)**: 1-digit foundations and simple 2-digit combinations.
@@ -15,18 +15,18 @@ A minimalist, printer-friendly math worksheet generator for elementary students,
 - **Interactive UI**: Modern sidebar configuration with chips-based selection for numbers and topics.
 - **Bahasa Indonesia**: All labels, topics, and categories are localized for the Indonesian curriculum.
 
-## 🛠️ tech Stack
+## Tech Stack
 
 - **HTML5**: Semantic structure.
 - **Vanilla CSS3**: Custom design system with "Deep Indigo" aesthetic and print media queries.
 - **Vanilla JavaScript**: Lightweight generator logic and state management (no external dependencies).
 
-## 📖 How to Use
+## How to Use
 
-### 🌐 Online Version (Recommended)
+### Online Version (Recommended)
 Simply access the **[Live Demo](https://ewinsutriandi.github.io/math-worksheet/)** to generate and print worksheets directly from your browser.
 
-### 💾 Offline Version
+### Offline Version
 If you plan to use this tool without an internet connection:
 1. **Download** or clone this repository to your computer.
 2. Open the `index.html` file in any modern web browser (no local server required).
