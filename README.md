@@ -2,6 +2,8 @@
 
 A minimalist, printer-friendly math worksheet generator for elementary students, built as a single-page application (SPA). This tool is designed to help parents and teachers in Indonesia generate high-quality practice problems for foundational math topics.
 
+**🌐 Live Demo: [ewinsutriandi.github.io/math-worksheet/](https://ewinsutriandi.github.io/math-worksheet/)**
+
 ## 🚀 Key Features
 
 - **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Porogapit" (long division) support.
