@@ -1,10 +1,30 @@
-Vibe coded printer friendly math worksheets for kids. 
+# Math Worksheet Generator (Indonesian Edition)
 
-## How 
-Download and just open the html files for use
+A minimalist, printer-friendly math worksheet generator for elementary students, built as a single-page application (SPA). This tool is designed to help parents and teachers in Indonesia generate high-quality practice problems for foundational math topics.
 
-## Prompts 
-For those interested in the prompts for generating this, you can find the full conversation at:  
-* [arithmetics](https://grok.com/share/c2hhcmQtMw%3D%3D_792f6f09-2b71-4069-960d-0ad00c1f295e)
-* [analog clock](https://grok.com/share/c2hhcmQtMw%3D%3D_a9db0cbb-bb7f-412d-9894-b9a577cb0bf3)
-* [proper fraction](https://grok.com/share/c2hhcmQtMw%3D%3D_63c2a6a6-347f-4565-b065-22bab07330fd)
+## 🚀 Key Features
+
+- **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Porogapit" (long division) support.
+    - **Dasar (Basic)**: 1-digit foundations and simple 2-digit combinations.
+    - **Menengah (Intermediate)**: 2-digit with regrouping/borrowing and multiplication.
+    - **Lanjut (Advanced)**: 3-digit operations, double regrouping, and complex division.
+- **Pecahan (Fractions)**: Visualizing, identifying equivalent fractions, and simplifying.
+- **Printer-Optimized**: Automatic clean layout for A4 printing with dedicated answer key pages.
+- **Interactive UI**: Modern sidebar configuration with chips-based selection for numbers and topics.
+- **Bahasa Indonesia**: All labels, topics, and categories are localized for the Indonesian curriculum.
+
+## 🛠️ tech Stack
+
+- **HTML5**: Semantic structure.
+- **Vanilla CSS3**: Custom design system with "Deep Indigo" aesthetic and print media queries.
+- **Vanilla JavaScript**: Lightweight generator logic and state management (no external dependencies).
+
+## 📖 How to Use
+
+1. Clone or download this repository.
+2. Open `index.html` in any modern web browser.
+3. Select a topic and adjust the configuration (number of questions, level).
+4. Tap "Cetak Lembar Kerja" or press `Ctrl+P` / `Cmd+P` to print or save as PDF.
+
+---
+*Vibe coded for elementary math excellence.*
