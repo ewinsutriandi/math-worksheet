@@ -23,10 +23,14 @@ A minimalist, printer-friendly math worksheet generator for elementary students,
 
 ## 📖 How to Use
 
-1. Clone or download this repository.
-2. Open `index.html` in any modern web browser.
-3. Select a topic and adjust the configuration (number of questions, level).
-4. Tap "Cetak Lembar Kerja" or press `Ctrl+P` / `Cmd+P` to print or save as PDF.
+### 🌐 Online Version (Recommended)
+Simply access the **[Live Demo](https://ewinsutriandi.github.io/math-worksheet/)** to generate and print worksheets directly from your browser.
+
+### 💾 Offline Version
+If you plan to use this tool without an internet connection:
+1. **Download** or clone this repository to your computer.
+2. Open the `index.html` file in any modern web browser (no local server required).
+3. Select your topic and configuration, then print or save as PDF (`Ctrl+P` / `Cmd+P`).
 
 ---
 *Vibe coded for elementary math excellence.*
