@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Lembar Kerja Matematika SD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <!-- Dashboard View -->
+        <main id="dashboard-view" class="view active">
+            <header class="dashboard-header">
+                <h1>Generator Lembar Kerja Matematika</h1>
+                <p>Buat dan cetak lembar kerja matematika SD dalam hitungan detik.</p>
+            </header>
+
+            <div class="topic-grid">
+                <!-- Arithmetics Section -->
+                <section class="topic-category">
+                    <h2>Aritmatika</h2>
+                    <div class="topic-cards">
+                        <button class="topic-card" onclick="app.selectTopic('arithmetic', 'addition')">
+                            <span class="icon">➕</span>
+                            <h3>Penjumlahan</h3>
+                            <p>Tingkat: Dasar, Menengah, Lanjut</p>
+                        </button>
+                        <button class="topic-card" onclick="app.selectTopic('arithmetic', 'subtraction')">
+                            <span class="icon">➖</span>
+                            <h3>Pengurangan</h3>
+                            <p>Tingkat: Dasar, Menengah, Lanjut</p>
+                        </button>
+                        <button class="topic-card" onclick="app.selectTopic('arithmetic', 'multiplication')">
+                            <span class="icon">✖️</span>
+                            <h3>Perkalian</h3>
+                            <p>Tingkat: Dasar, Menengah, Lanjut</p>
+                        </button>
+                        <button class="topic-card" onclick="app.selectTopic('arithmetic', 'division')">
+                            <span class="icon">➗</span>
+                            <h3>Pembagian</h3>
+                            <p>Tingkat: Dasar, Menengah, Lanjut</p>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Fractions Section -->
+                <section class="topic-category">
+                    <h2>Pecahan & Desimal</h2>
+                    <div class="topic-cards">
+                        <button class="topic-card" onclick="app.selectTopic('fraction', 'fundamental')">
+                            <span class="icon">🍰</span>
+                            <h3>Pecahan Dasar</h3>
+                            <p>Visual, Senilai, Sederhana</p>
+                        </button>
+                        <button class="topic-card disabled" disabled>
+                            <span class="icon">⚖️</span>
+                            <h3>Pecahan Menengah</h3>
+                            <p>Bandingkan, Operasi Dasar</p>
+                        </button>
+                        <button class="topic-card disabled" disabled>
+                            <span class="icon">🚀</span>
+                            <h3>Pecahan Lanjut</h3>
+                            <p>Perkalian, Desimal, Persen</p>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Generator View -->
+        <main id="generator-view" class="view">
+            <aside class="sidebar no-print">
+                <div class="sidebar-header">
+                    <button onclick="app.navigateToDashboard()" class="back-btn">← Kembali</button>
+                    <h2 id="current-topic-title">Topik</h2>
+                </div>
+
+                <div class="config-group">
+                    <label>Sub-Topik</label>
+                    <div id="subtopic-chips" class="chips-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <label>Jumlah Soal</label>
+                    <div id="question-count-chips" class="chips-container">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="config-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="include-answer-key" onchange="app.updateConfig()">
+                        Sertakan Kunci Jawaban
+                    </label>
+                </div>
+
+                <div class="action-buttons">
+                    <button onclick="app.regenerate()" class="btn-secondary">Acak Ulang</button>
+                    <button onclick="window.print()" class="btn-primary">Cetak / Simpan PDF</button>
+                </div>
+            </aside>
+
+            <section class="preview-area">
+                <div id="worksheet-preview" class="worksheet-page">
+                    <header class="worksheet-header">
+                        <div class="header-left">
+                            <h1 id="worksheet-title">Lembar Kerja</h1>
+                            <p id="worksheet-subtitle">Topik</p>
+                        </div>
+                        <div class="header-right">
+                            <div class="field">Nama: _________________</div>
+                            <div class="field">Kelas: _________________</div>
+                            <div class="field">Tanggal: _______________</div>
+                        </div>
+                    </header>
+
+                    <div id="problems-container" class="problems-grid">
+                        <!-- Problems injected here -->
+                    </div>
+
+                    <footer class="worksheet-footer">
+                        Halaman 1 &bull; Dibuat dengan Generator Lembar Kerja Matematika
+                    </footer>
+                </div>
+
+                <div id="answer-key-page" class="worksheet-page answer-key" style="display: none;">
+                    <header class="worksheet-header">
+                        <h1>Kunci Jawaban</h1>
+                        <p id="answer-key-subtitle">Topik</p>
+                    </header>
+
+                    <div id="answers-container" class="answers-grid">
+                        <!-- Answers injected here -->
+                    </div>
+
+                    <footer class="worksheet-footer">
+                        Kunci Jawaban &bull; Dibuat dengan Generator Lembar Kerja Matematika
+                    </footer>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="generators/fraction.js"></script>
+    <script src="generators/arithmetic.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
