@@ -9,7 +9,7 @@ A minimalist, printer-friendly math worksheet generator for elementary students,
 - **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Porogapit" (long division) support.
     - **Dasar (Basic)**: 1-digit foundations and simple 2-digit combinations.
     - **Menengah (Intermediate)**: 2-digit with regrouping/borrowing and multiplication.
-    - **Lanjut (Advanced)**: 3-digit operations, double regrouping, and complex division.
+    - **Mahir (Advanced)**: 3-digit operations, double regrouping, and complex division.
 - **Pecahan (Fractions)**: Visualizing, identifying equivalent fractions, and simplifying.
 - **Printer-Optimized**: Automatic clean layout for A4 printing with dedicated answer key pages.
 - **Interactive UI**: Modern sidebar configuration with chips-based selection for numbers and topics.

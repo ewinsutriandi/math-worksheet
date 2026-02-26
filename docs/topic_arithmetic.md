@@ -1,6 +1,6 @@
 # Detailed Topic Specification: Arithmetic (Aritmatika)
 
-This document outlines the detailed question progression and logic cases for the Arithmetic topic, organized into three proficiency levels: **Basic (Dasar)**, **Intermediate (Menengah)**, and **Advanced (Lanjut)**.
+This document outlines the detailed question progression and logic cases for the Arithmetic topic, organized into three proficiency levels: **Basic (Dasar)**, **Intermediate (Menengah)**, and **Advanced (Mahir)**.
 
 ---
 
@@ -22,7 +22,7 @@ Focus on two-digit operations and regrouping.
 | Case 5 | 2-digit + 2-digit, No Regrouping   | 34 + 25 |
 | Case 6 | 2-digit + 2-digit, With Regrouping | 47 + 38 |
 
-### Level: Lanjut (Advanced)
+### Level: Mahir (Advanced)
 Focus on three-digit operations and multiple regrouping.
 | Case   | Description                                     | Example   |
 | :----- | :---------------------------------------------- | :-------- |
@@ -50,7 +50,7 @@ Focus on two-digit operations and borrowing.
 | Case 5 | 2-digit - 2-digit, No Borrowing   | 45 - 23 |
 | Case 6 | 2-digit - 2-digit, With Borrowing | 54 - 27 |
 
-### Level: Lanjut (Advanced)
+### Level: Mahir (Advanced)
 Focus on three-digit operations and complex borrowing.
 | Case   | Description                           | Example              |
 | :----- | :------------------------------------ | :------------------- |
@@ -78,7 +78,7 @@ Focus on two-digit multiplication.
 | Case 5 | 2-digit x 1-digit, With Carry      | 26 x 3  |
 | Case 6 | 2-digit x 2-digit (Simple factors) | 12 x 13 |
 
-### Level: Lanjut (Advanced)
+### Level: Mahir (Advanced)
 Focus on multi-digit and larger factors.
 | Case   | Description                 | Example  |
 | :----- | :-------------------------- | :------- |
@@ -106,7 +106,7 @@ Focus on two-digit quotients and simple porogapit.
 | Case 5 | 3-digit / 1-digit, No Borrowing in steps | 482 / 2        |
 | Case 6 | 2-digit / 2-digit                        | 36 / 12        |
 
-### Level: Lanjut (Advanced)
+### Level: Mahir (Advanced)
 Focus on three-digit dividends and two-digit divisors.
 | Case   | Description                           | Example  |
 | :----- | :------------------------------------ | :------- |

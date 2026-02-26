@@ -37,10 +37,30 @@ const app = {
             'fraction': 'Pecahan',
             'arithmetic': 'Aritmatika'
         };
+        const subtopicNameMap = {
+            'addition': 'Penjumlahan',
+            'subtraction': 'Pengurangan',
+            'multiplication': 'Perkalian',
+            'division': 'Pembagian',
+            'fundamental': 'Pecahan Dasar'
+        };
+
         const topicName = titleMap[this.state.currentTopic] || this.state.currentTopic;
 
-        document.getElementById('current-topic-title').textContent = topicName;
-        document.getElementById('worksheet-title').textContent = `Lembar Kerja ${topicName}`;
+        let subName = '';
+        const currentSub = this.state.currentSubtopic || '';
+        if (subtopicNameMap[currentSub]) {
+            subName = subtopicNameMap[currentSub];
+        } else if (currentSub.startsWith('add-')) subName = 'Penjumlahan';
+        else if (currentSub.startsWith('sub-')) subName = 'Pengurangan';
+        else if (currentSub.startsWith('mul-')) subName = 'Perkalian';
+        else if (currentSub.startsWith('div-')) subName = 'Pembagian';
+        else if (currentSub.startsWith('visual') || currentSub === 'equivalent' || currentSub === 'simplest') subName = 'Pecahan Dasar';
+
+        const breadcrumbTitle = subName ? `${topicName} - ${subName}` : topicName;
+
+        document.getElementById('current-topic-title').textContent = breadcrumbTitle;
+        document.getElementById('worksheet-title').textContent = `Lembar Kerja ${breadcrumbTitle}`;
 
         // Populate Subtopic Chips
         const chipsContainer = document.getElementById('subtopic-chips');
@@ -61,25 +81,25 @@ const app = {
                 subtopics = [
                     { value: 'add-dasar', label: 'Dasar' },
                     { value: 'add-menengah', label: 'Menengah' },
-                    { value: 'add-lanjut', label: 'Lanjut' }
+                    { value: 'add-mahir', label: 'Mahir' }
                 ];
             } else if (sub === 'subtraction' || sub.startsWith('sub-')) {
                 subtopics = [
                     { value: 'sub-dasar', label: 'Dasar' },
                     { value: 'sub-menengah', label: 'Menengah' },
-                    { value: 'sub-lanjut', label: 'Lanjut' }
+                    { value: 'sub-mahir', label: 'Mahir' }
                 ];
             } else if (sub === 'multiplication' || sub.startsWith('mul-')) {
                 subtopics = [
                     { value: 'mul-dasar', label: 'Dasar' },
                     { value: 'mul-menengah', label: 'Menengah' },
-                    { value: 'mul-lanjut', label: 'Lanjut' }
+                    { value: 'mul-mahir', label: 'Mahir' }
                 ];
             } else if (sub === 'division' || sub.startsWith('div-')) {
                 subtopics = [
                     { value: 'div-dasar', label: 'Dasar' },
                     { value: 'div-menengah', label: 'Menengah' },
-                    { value: 'div-lanjut', label: 'Lanjut' }
+                    { value: 'div-mahir', label: 'Mahir' }
                 ];
             }
         }

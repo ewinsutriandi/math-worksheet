@@ -104,7 +104,7 @@ const arithmeticGenerator = {
                     return { nums: [n1, n2], diff: 6 };
                 }
             ];
-        } else { // lanjut
+        } else { // mahir
             cases = [
                 () => { // Case 7: 3D + 2D, With Regrouping
                     let n1, n2;
@@ -207,7 +207,7 @@ const arithmeticGenerator = {
                     return { n1, n2, diff: 6 };
                 }
             ];
-        } else { // lanjut
+        } else { // mahir
             cases = [
                 () => { // Case 7: 3D - 2D, Standard Borrowing
                     let n1, n2;
