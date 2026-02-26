@@ -2,32 +2,36 @@ const arithmeticGenerator = {
     generate: function (subtopic, count) {
         let problems = [];
         const [op, level] = subtopic.split('-');
+        const seen = new Set();
+        let attempts = 0;
+        const maxAttempts = count * 10;
 
-        // To ensure "easy first", we distribute the count across available cases
-        // and let the specific generators handle the case selection.
-        // However, it's easier to generate all, then sort by a hidden difficulty property.
-
-        for (let i = 0; i < count; i++) {
+        while (problems.length < count && attempts < maxAttempts) {
+            attempts++;
             let problem;
             switch (op) {
-                case 'add':
-                    problem = this.generateAddition(level);
-                    break;
-                case 'sub':
-                    problem = this.generateSubtraction(level);
-                    break;
-                case 'mul':
-                    problem = this.generateMultiplication(level);
-                    break;
-                case 'div':
-                    problem = this.generateDivision(level);
-                    break;
+                case 'add': problem = this.generateAddition(level); break;
+                case 'sub': problem = this.generateSubtraction(level); break;
+                case 'mul': problem = this.generateMultiplication(level); break;
+                case 'div': problem = this.generateDivision(level); break;
             }
-            problems.push(problem);
+
+            if (!problem) continue;
+
+            // Identity check (op + operands)
+            const id = `${op}:${problem.operands.join(',')}`;
+            if (!seen.has(id)) {
+                seen.add(id);
+                problems.push(problem);
+            }
         }
 
-        // Sort by difficulty (case number)
-        problems.sort((a, b) => (a.difficulty || 0) - (b.difficulty || 0));
+        // Sort by operand sum (natural progression)
+        problems.sort((a, b) => {
+            const sumA = a.operands.reduce((acc, n) => acc + n, 0);
+            const sumB = b.operands.reduce((acc, n) => acc + n, 0);
+            return sumA - sumB || (a.difficulty || 0) - (b.difficulty || 0);
+        });
 
         return problems;
     },
@@ -146,12 +150,14 @@ const arithmeticGenerator = {
         if (isHorizontal) {
             return {
                 ...this.formatHorizontalAddition(res.nums, sum),
-                difficulty: res.diff
+                difficulty: res.diff,
+                operands: res.nums
             };
         } else {
             return {
                 ...this.formatVerticalAddition(res.nums, sum),
-                difficulty: res.diff
+                difficulty: res.diff,
+                operands: res.nums
             };
         }
     },
@@ -161,22 +167,29 @@ const arithmeticGenerator = {
 
         if (level === 'dasar') {
             cases = [
-                () => { // Case 1: 1D - 1D
-                    let n1 = this.utils.getRandomInt(1, 9);
-                    let n2 = this.utils.getRandomInt(1, n1);
-                    return { n1, n2, diff: 1 };
+                () => { // Case 1: 1D - 1D (Result 1-8)
+                    let res = this.utils.getRandomInt(1, 8);
+                    let n2 = this.utils.getRandomInt(1, 9 - res);
+                    return { n1: res + n2, n2: n2, diff: 1 };
                 },
-                () => { // Case 2: 2D - 1D, Result is 1-digit
+                () => { // Case 2: 2D - 1D (Result 1-9)
                     let res = this.utils.getRandomInt(1, 9);
-                    let n2 = this.utils.getRandomInt(1, 9);
-                    return { n1: res + n2, n2: n2, diff: 2 };
+                    let n1 = this.utils.getRandomInt(10, 18);
+                    let n2 = n1 - res;
+                    // Ensure n2 is 1-digit
+                    if (n2 > 9) {
+                        n2 = 9; n1 = res + n2;
+                    }
+                    return { n1, n2, diff: 2 };
                 },
-                () => { // Case 3: 2D - 1D, No Borrowing
-                    let n1, n2;
-                    do {
-                        n1 = this.utils.getRandomInt(20, 99);
-                        n2 = this.utils.getRandomInt(1, 9);
-                    } while (this.utils.needsBorrowing(n1, n2));
+                () => { // Case 3: 2D - 2D (Result 1-9)
+                    let res = this.utils.getRandomInt(1, 9);
+                    let n1 = this.utils.getRandomInt(11, 19);
+                    let n2 = n1 - res;
+                    // Ensure n2 is 2-digit
+                    if (n2 < 10) {
+                        n2 = 10; n1 = res + n2;
+                    }
                     return { n1, n2, diff: 3 };
                 }
             ];
@@ -235,10 +248,21 @@ const arithmeticGenerator = {
         }
 
         const res = cases[Math.floor(Math.random() * cases.length)]();
-        return {
-            ...this.formatVertical(res.n1, res.n2, '-', res.n1 - res.n2),
-            difficulty: res.diff
-        };
+        const answer = res.n1 - res.n2;
+
+        if (level === 'dasar') {
+            return {
+                ...this.formatHorizontalSubtraction(res.n1, res.n2, answer),
+                difficulty: res.diff,
+                operands: [res.n1, res.n2]
+            };
+        } else {
+            return {
+                ...this.formatVertical(res.n1, res.n2, '-', answer),
+                difficulty: res.diff,
+                operands: [res.n1, res.n2]
+            };
+        }
     },
 
     generateMultiplication: function (level) {
@@ -266,7 +290,8 @@ const arithmeticGenerator = {
         const res = cases[Math.floor(Math.random() * cases.length)]();
         return {
             ...this.formatVertical(res.n1, res.n2, '×', res.n1 * res.n2),
-            difficulty: res.diff
+            difficulty: res.diff,
+            operands: [res.n1, res.n2]
         };
     },
 
@@ -302,7 +327,7 @@ const arithmeticGenerator = {
         } else {
             res = this.formatDivision(dividend, divisor, quotient);
         }
-        return { ...res, difficulty: diff };
+        return { ...res, difficulty: diff, operands: [dividend, divisor] };
     },
 
     formatHorizontalAddition: function (nums, answer) {
@@ -310,6 +335,17 @@ const arithmeticGenerator = {
             questionHTML: `
                 <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
                     ${nums.join(' + ')} = ...
+                </div>
+            `,
+            answerHTML: `<span class="answer-text">${answer}</span>`
+        };
+    },
+
+    formatHorizontalSubtraction: function (n1, n2, answer) {
+        return {
+            questionHTML: `
+                <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
+                    ${n1} - ${n2} = ...
                 </div>
             `,
             answerHTML: `<span class="answer-text">${answer}</span>`

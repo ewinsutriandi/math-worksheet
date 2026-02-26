@@ -35,12 +35,12 @@ Focus on three-digit operations and multiple regrouping.
 ## 2. Pengurangan (Subtraction)
 
 ### Level: Dasar (Basic)
-Focus on single-digit results and foundations.
-| Case   | Description                          | Example |
-| :----- | :----------------------------------- | :------ |
-| Case 1 | 1-digit - 1-digit                    | 9 - 4   |
-| Case 2 | 2-digit - 1-digit, Result is 1-digit | 15 - 7  |
-| Case 3 | 2-digit - 1-digit, No Borrowing      | 25 - 3  |
+Focus on 1-digit and simple 2-digit foundations. All results must be 1-9 (non-zero, single digit) and formatted horizontally.
+| Case   | Description                            | Example |
+| :----- | :------------------------------------- | :------ |
+| Case 1 | 1-digit - 1-digit                      | 9 - 4   |
+| Case 2 | 2-digit - 1-digit (No Borrowing)       | 15 - 6  |
+| Case 3 | 2-digit - 2-digit (Simple foundations) | 11 - 2  |
 
 ### Level: Menengah (Intermediate)
 Focus on two-digit operations and borrowing.
