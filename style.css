@@ -321,6 +321,14 @@ button.btn-secondary:hover {
     align-content: start;
 }
 
+.answers-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem 1rem;
+    flex-grow: 1;
+    align-content: start;
+}
+
 .problem-card {
     display: flex;
     align-items: center;
@@ -330,10 +338,24 @@ button.btn-secondary:hover {
     /* Added space specifically for writing answers */
 }
 
+.answer-card {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    break-inside: avoid;
+    padding-bottom: 0.5rem;
+}
+
 .problem-number {
     font-weight: bold;
     font-size: 1.2rem;
     min-width: 1.5rem;
+}
+
+.answer-number {
+    font-weight: bold;
+    font-size: 1rem;
+    min-width: 1.2rem;
 }
 
 .problem-content {
@@ -411,8 +433,8 @@ button.btn-secondary:hover {
 
 .answer-text {
     font-family: var(--font-mono);
-    font-weight: bold;
-    font-size: 1.2rem;
+    font-weight: normal;
+    font-size: 1rem;
 }
 
 /* Visualization Styles (Fractions) */

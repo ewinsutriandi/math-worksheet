@@ -219,8 +219,8 @@ const app = {
             const answerDiv = document.createElement('div');
             answerDiv.className = 'answer-card';
             answerDiv.innerHTML = `
-                <div class="answer-number">${index + 1}.</div>
-                <div class="answer-content">${problem.answerHTML}</div>
+                <span class="answer-number">${index + 1}.</span>
+                <span class="answer-content">${problem.answerHTML}</span>
             `;
             answersContainer.appendChild(answerDiv);
         });
