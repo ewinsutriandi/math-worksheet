@@ -26,8 +26,21 @@ const arithmeticGenerator = {
             }
         }
 
-        // Sort by operand sum (natural progression)
+        // Sort by specific criteria per operation
         problems.sort((a, b) => {
+            if (op === 'sub') {
+                // Subtraction sorting: total digits first
+                const digitsA = a.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                const digitsB = b.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                if (digitsA !== digitsB) return digitsA - digitsB;
+
+                // Then borrowing
+                const borrowA = a.needsBorrowing ? 1 : 0;
+                const borrowB = b.needsBorrowing ? 1 : 0;
+                if (borrowA !== borrowB) return borrowA - borrowB;
+            }
+
+            // Default: Sort by operand sum (natural progression)
             const sumA = a.operands.reduce((acc, n) => acc + n, 0);
             const sumB = b.operands.reduce((acc, n) => acc + n, 0);
             return sumA - sumB || (a.difficulty || 0) - (b.difficulty || 0);
@@ -249,18 +262,21 @@ const arithmeticGenerator = {
 
         const res = cases[Math.floor(Math.random() * cases.length)]();
         const answer = res.n1 - res.n2;
+        const needsBorrowing = this.utils.needsBorrowing(res.n1, res.n2);
 
         if (level === 'dasar') {
             return {
                 ...this.formatHorizontalSubtraction(res.n1, res.n2, answer),
                 difficulty: res.diff,
-                operands: [res.n1, res.n2]
+                operands: [res.n1, res.n2],
+                needsBorrowing: needsBorrowing
             };
         } else {
             return {
                 ...this.formatVertical(res.n1, res.n2, '-', answer),
                 difficulty: res.diff,
-                operands: [res.n1, res.n2]
+                operands: [res.n1, res.n2],
+                needsBorrowing: needsBorrowing
             };
         }
     },
