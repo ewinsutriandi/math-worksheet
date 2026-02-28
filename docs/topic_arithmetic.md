@@ -2,114 +2,79 @@
 
 This document outlines the detailed question progression and logic cases for the Arithmetic topic, organized into three proficiency levels: **Basic (Dasar)**, **Intermediate (Menengah)**, and **Advanced (Mahir)**.
 
+To ensure a smooth learning progression, all operations follow a **Natural Progression** sorting strategy where easier problems (fewer digits, no regrouping) appear before more complex ones.
+
 ---
 
 ## 1. Penjumlahan (Addition)
 
-### Level: Dasar (Basic)
-Focus on single-digit foundations and simple extensions.
-| Case   | Description                                  | Example      |
-| :----- | :------------------------------------------- | :----------- |
-| Case 1 | 1-digit + 1-digit                            | 5 + 3, 8 + 7 |
-| Case 2 | 2-digit + 1-digit, No Regrouping (Sum < 100) | 24 + 3       |
-| Case 3 | Multiple 1-digit (3 numbers)                 | 4 + 2 + 5    |
+### Level Overview
+Focus on multi-digit operations and "Simpan" (regrouping).
 
-### Level: Menengah (Intermediate)
-Focus on two-digit operations and regrouping.
-| Case   | Description                        | Example |
-| :----- | :--------------------------------- | :------ |
-| Case 4 | 2-digit + 1-digit, With Regrouping | 28 + 5  |
-| Case 5 | 2-digit + 2-digit, No Regrouping   | 34 + 25 |
-| Case 6 | 2-digit + 2-digit, With Regrouping | 47 + 38 |
+| Level        | Description                                            | Example         |
+| :----------- | :----------------------------------------------------- | :-------------- |
+| **Dasar**    | 1-digit foundations and horizontal 2-digit extensions. | 5+3, 24+3       |
+| **Menengah** | 2-digit focus with regrouping.                         | 28+5, 47+38     |
+| **Mahir**    | 3-digit operations and double regrouping.              | 145+67, 885+248 |
 
-### Level: Mahir (Advanced)
-Focus on three-digit operations and multiple regrouping.
-| Case   | Description                                     | Example   |
-| :----- | :---------------------------------------------- | :-------- |
-| Case 7 | 3-digit + 2-digit, With Regrouping              | 145 + 67  |
-| Case 8 | 3-digit + 3-digit, Standard Regrouping          | 234 + 189 |
-| Case 9 | 3-digit + 3-digit, Double Regrouping / Overflow | 885 + 248 |
+### Sorting Logic
+1. **Total Digits**: 1-digit foundations always come first.
+2. **Regrouping (Simpan)**: Within the same digit count, problems without regrouping (e.g., 12+5) come before those with regrouping (e.g., 18+5).
+3. **Sum of Operands**: Smaller results come before larger ones within the same category.
 
 ---
 
 ## 2. Pengurangan (Subtraction)
 
-### Level: Dasar (Basic)
-Focus on 1-digit and simple 2-digit foundations. All results must be 1-9 (non-zero, single digit) and formatted horizontally.
-| Case   | Description                            | Example |
-| :----- | :------------------------------------- | :------ |
-| Case 1 | 1-digit - 1-digit                      | 9 - 4   |
-| Case 2 | 2-digit - 1-digit (No Borrowing)       | 15 - 6  |
-| Case 3 | 2-digit - 2-digit (Simple foundations) | 11 - 2  |
+### Level Overview
+Focus on multi-digit operations and "Pinjam" (borrowing). Dasar level uses horizontal format only.
 
-### Level: Menengah (Intermediate)
-Focus on two-digit operations and borrowing.
-| Case   | Description                       | Example |
-| :----- | :-------------------------------- | :------ |
-| Case 4 | 2-digit - 1-digit, With Borrowing | 32 - 8  |
-| Case 5 | 2-digit - 2-digit, No Borrowing   | 45 - 23 |
-| Case 6 | 2-digit - 2-digit, With Borrowing | 54 - 27 |
+| Level        | Description                                          | Example         |
+| :----------- | :--------------------------------------------------- | :-------------- |
+| **Dasar**    | 1-digit and simple 2-digit (Horizontal, result 1-9). | 9-4, 15-6       |
+| **Menengah** | 2-digit focus with borrowing.                        | 32-8, 54-27     |
+| **Mahir**    | 3-digit focus and complex borrowing (across zero).   | 125-48, 500-125 |
 
-### Level: Mahir (Advanced)
-Focus on three-digit operations and complex borrowing.
-| Case   | Description                           | Example              |
-| :----- | :------------------------------------ | :------------------- |
-| Case 7 | 3-digit - 2-digit, Standard Borrowing | 125 - 48             |
-| Case 8 | 3-digit - 3-digit, Double Borrowing   | 523 - 285            |
-| Case 9 | Subtraction across Zero               | 502 - 145, 500 - 125 |
+### Sorting Logic
+1. **Total Digits**: Problems with fewer total digits appear first.
+2. **Borrowing (Pinjam)**: Problems without borrowing (e.g., 25-3) come before those requiring borrowing (e.g., 21-5).
+3. **Sum of Operands**: Used as a tie-breaker.
 
 ---
 
 ## 3. Perkalian (Multiplication)
 
-### Level: Dasar (Basic)
-Focus on multiplication tables.
-| Case   | Description                    | Example |
-| :----- | :----------------------------- | :------ |
-| Case 1 | 1-digit x 1-digit (1-5 tables) | 3 x 4   |
-| Case 2 | 1-digit x 1-digit (6-9 tables) | 7 x 8   |
-| Case 3 | 1-digit x 10, 20, ..., 90      | 6 x 20  |
+### Level Overview
+Focus on multiplication tables and multi-digit factors. Dasar level uses horizontal format.
 
-### Level: Menengah (Intermediate)
-Focus on two-digit multiplication.
-| Case   | Description                        | Example |
-| :----- | :--------------------------------- | :------ |
-| Case 4 | 2-digit x 1-digit, No Carry        | 21 x 4  |
-| Case 5 | 2-digit x 1-digit, With Carry      | 26 x 3  |
-| Case 6 | 2-digit x 2-digit (Simple factors) | 12 x 13 |
+| Level        | Description                                     | Example       |
+| :----------- | :---------------------------------------------- | :------------ |
+| **Dasar**    | Tables 1-9 and multiples of 10.                 | 3x4, 6x20     |
+| **Menengah** | 2-digit x 1-digit and simple 2-digit x 2-digit. | 26x3, 12x13   |
+| **Mahir**    | Complex multi-digit multiplication.             | 45x23, 125x42 |
 
-### Level: Mahir (Advanced)
-Focus on multi-digit and larger factors.
-| Case   | Description                 | Example  |
-| :----- | :-------------------------- | :------- |
-| Case 7 | 2-digit x 2-digit, Standard | 45 x 23  |
-| Case 8 | 3-digit x 1-digit           | 128 x 4  |
-| Case 9 | 3-digit x 2-digit           | 125 x 42 |
+### Sorting Logic
+1. **Sum of Operands**: Progression based on the size of the factors.
+2. **Difficulty Case**: Lower complexity cases appear first.
 
 ---
 
-## 4. Pembagian (Division - Porogapit)
+## 4. Pembagian (Division)
 
-### Level: Dasar (Basic)
-Focus on inverse multiplication and 1-digit results.
-| Case   | Description                          | Example |
-| :----- | :----------------------------------- | :------ |
-| Case 1 | 1-digit / 1-digit                    | 8 / 2   |
-| Case 2 | 2-digit / 1-digit, Result is 1-digit | 45 / 9  |
-| Case 3 | 2-digit / 1-digit, Multiple of 10    | 60 / 3  |
+### Level Overview
+Focus on "Bagi Kurung" (long division). Dasar level uses horizontal format.
 
-### Level: Menengah (Intermediate)
-Focus on two-digit quotients and simple porogapit.
-| Case   | Description                              | Example        |
-| :----- | :--------------------------------------- | :------------- |
-| Case 4 | 2-digit / 1-digit, Result > 10           | 84 / 4, 75 / 3 |
-| Case 5 | 3-digit / 1-digit, No Borrowing in steps | 482 / 2        |
-| Case 6 | 2-digit / 2-digit                        | 36 / 12        |
+| Level        | Description                                    | Example       |
+| :----------- | :--------------------------------------------- | :------------ |
+| **Dasar**    | Horizontal division with single-digit results. | 8/2, 60/3     |
+| **Menengah** | Simple bagi kurung and 2-digit quotients.      | 84/4, 36/12   |
+| **Mahir**    | Complex bagi kurung with multi-digit divisors. | 126/6, 425/25 |
 
-### Level: Mahir (Advanced)
-Focus on three-digit dividends and two-digit divisors.
-| Case   | Description                           | Example  |
-| :----- | :------------------------------------ | :------- |
-| Case 7 | 3-digit / 1-digit, Standard Porogapit | 126 / 6  |
-| Case 8 | 3-digit / 2-digit, Standard           | 156 / 12 |
-| Case 9 | 3-digit / 2-digit, Large Divisor      | 425 / 25 |
+### Sorting Logic
+1. **Sum of Operands**: Smaller dividends and divisors appear first.
+2. **Difficulty Case**: Lower complexity cases appear first.
+
+---
+
+## 5. Duplicate Prevention
+Regardless of the operation, the generator tracks each question using a unique identifier (`op:operands`) to ensure no identical problems appear on the same worksheet.

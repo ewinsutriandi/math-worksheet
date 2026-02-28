@@ -6,7 +6,7 @@ A minimalist, printer-friendly math worksheet generator for elementary students,
 
 ## Key Features
 
-- **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Porogapit" (long division) support.
+- **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Bagi Kurung" (long division) support.
     - **Dasar (Basic)**: 1-digit foundations and simple 2-digit combinations.
     - **Menengah (Intermediate)**: 2-digit with regrouping/borrowing and multiplication.
     - **Mahir (Advanced)**: 3-digit operations, double regrouping, and complex division.

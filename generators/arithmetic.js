@@ -38,6 +38,16 @@ const arithmeticGenerator = {
                 const borrowA = a.needsBorrowing ? 1 : 0;
                 const borrowB = b.needsBorrowing ? 1 : 0;
                 if (borrowA !== borrowB) return borrowA - borrowB;
+            } else if (op === 'add') {
+                // Addition sorting: total digits first
+                const digitsA = a.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                const digitsB = b.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                if (digitsA !== digitsB) return digitsA - digitsB;
+
+                // Then regrouping
+                const regroupA = a.needsRegrouping ? 1 : 0;
+                const regroupB = b.needsRegrouping ? 1 : 0;
+                if (regroupA !== regroupB) return regroupA - regroupB;
             }
 
             // Default: Sort by operand sum (natural progression)
@@ -147,12 +157,9 @@ const arithmeticGenerator = {
 
         const res = cases[Math.floor(Math.random() * cases.length)]();
         const sum = res.nums.reduce((a, b) => a + b, 0);
+        const needsRegrouping = res.nums.length === 2 && this.utils.needsRegrouping(res.nums[0], res.nums[1]);
 
         // Horizontal Rule: If any adder (except possibly the first) is 1-digit
-        // Case 1, 2, 3, 4 usually fit this. 
-        // User said: "if the adder is just one digit, leave it in horizontal format"
-        // In vertical addition, the "adder" is the bottom number (n2).
-
         let isHorizontal = false;
         if (res.nums.length > 2) {
             isHorizontal = res.nums.every(n => n < 10); // Multiple 1D
@@ -164,13 +171,15 @@ const arithmeticGenerator = {
             return {
                 ...this.formatHorizontalAddition(res.nums, sum),
                 difficulty: res.diff,
-                operands: res.nums
+                operands: res.nums,
+                needsRegrouping: needsRegrouping
             };
         } else {
             return {
                 ...this.formatVerticalAddition(res.nums, sum),
                 difficulty: res.diff,
-                operands: res.nums
+                operands: res.nums,
+                needsRegrouping: needsRegrouping
             };
         }
     },
@@ -304,11 +313,21 @@ const arithmeticGenerator = {
         }
 
         const res = cases[Math.floor(Math.random() * cases.length)]();
-        return {
-            ...this.formatVertical(res.n1, res.n2, '×', res.n1 * res.n2),
-            difficulty: res.diff,
-            operands: [res.n1, res.n2]
-        };
+        const answer = res.n1 * res.n2;
+
+        if (level === 'dasar') {
+            return {
+                ...this.formatHorizontalMultiplication(res.n1, res.n2, answer),
+                difficulty: res.diff,
+                operands: [res.n1, res.n2]
+            };
+        } else {
+            return {
+                ...this.formatVertical(res.n1, res.n2, '×', answer),
+                difficulty: res.diff,
+                operands: [res.n1, res.n2]
+            };
+        }
     },
 
     generateDivision: function (level) {
@@ -335,11 +354,8 @@ const arithmeticGenerator = {
 
         const [dividend, divisor, quotient, diff] = cases[Math.floor(Math.random() * cases.length)]();
         let res;
-        if (level === 'dasar' && Math.random() > 0.5) {
-            res = {
-                questionHTML: `<div class="inline-math" style="font-size: 1.5rem; font-family: var(--font-mono);">${dividend} : ${divisor} = ...</div>`,
-                answerHTML: `<span class="answer-text">${quotient}</span>`
-            };
+        if (level === 'dasar') {
+            res = this.formatHorizontalDivision(dividend, divisor, quotient);
         } else {
             res = this.formatDivision(dividend, divisor, quotient);
         }
@@ -362,6 +378,28 @@ const arithmeticGenerator = {
             questionHTML: `
                 <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
                     ${n1} - ${n2} = ...
+                </div>
+            `,
+            answerHTML: `<span class="answer-text">${answer}</span>`
+        };
+    },
+
+    formatHorizontalMultiplication: function (n1, n2, answer) {
+        return {
+            questionHTML: `
+                <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
+                    ${n1} &times; ${n2} = ...
+                </div>
+            `,
+            answerHTML: `<span class="answer-text">${answer}</span>`
+        };
+    },
+
+    formatHorizontalDivision: function (n1, n2, answer) {
+        return {
+            questionHTML: `
+                <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
+                    ${n1} : ${n2} = ...
                 </div>
             `,
             answerHTML: `<span class="answer-text">${answer}</span>`
