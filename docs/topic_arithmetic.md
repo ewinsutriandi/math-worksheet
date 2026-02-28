@@ -54,8 +54,9 @@ Focus on multiplication tables and multi-digit factors. Dasar level uses horizon
 | **Mahir**    | Complex multi-digit multiplication.             | 45x23, 125x42 |
 
 ### Sorting Logic
-1. **Sum of Operands**: Progression based on the size of the factors.
-2. **Difficulty Case**: Lower complexity cases appear first.
+1. **Total Digits**: Progression from single-digit to multi-digit factors.
+2. **Carrying (Simpan)**: Problems without carrying (e.g., 12 x 3) come before those with carrying (e.g., 14 x 5).
+3. **Sum of Operands**: Tie-breaker based on factor magnitude.
 
 ---
 
@@ -64,15 +65,16 @@ Focus on multiplication tables and multi-digit factors. Dasar level uses horizon
 ### Level Overview
 Focus on "Bagi Kurung" (long division). Dasar level uses horizontal format.
 
-| Level        | Description                                    | Example       |
-| :----------- | :--------------------------------------------- | :------------ |
-| **Dasar**    | Horizontal division with single-digit results. | 8/2, 60/3     |
-| **Menengah** | Simple bagi kurung and 2-digit quotients.      | 84/4, 36/12   |
-| **Mahir**    | Complex bagi kurung with multi-digit divisors. | 126/6, 425/25 |
+| Level        | Description                                        | Example            |
+| :----------- | :------------------------------------------------- | :----------------- |
+| **Dasar**    | Horizontal: Max 2-digit dividends, 1-digit result. | 8 ÷ 2, 99 ÷ 9      |
+| **Menengah** | Horizontal: 3-digit dividends.                     | 450 ÷ 2, 126 ÷ 3   |
+| **Mahir**    | Bagi Kurung: Multi-digit divisor/dividend focus.   | 648 ÷ 12, 425 ÷ 25 |
 
 ### Sorting Logic
-1. **Sum of Operands**: Smaller dividends and divisors appear first.
-2. **Difficulty Case**: Lower complexity cases appear first.
+1. **Total Digits**: Progression from small to large dividends/divisors.
+2. **Complexity**: Simple divisions (e.g., 48 ÷ 4) come before complex ones involving carry-over remainders (e.g., 72 ÷ 3).
+3. **Sum of Operands**: Final tie-breaker for magnitude.
 
 ---
 

@@ -48,6 +48,26 @@ const arithmeticGenerator = {
                 const regroupA = a.needsRegrouping ? 1 : 0;
                 const regroupB = b.needsRegrouping ? 1 : 0;
                 if (regroupA !== regroupB) return regroupA - regroupB;
+            } else if (op === 'mul') {
+                // Multiplication sorting: total digits first
+                const digitsA = a.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                const digitsB = b.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                if (digitsA !== digitsB) return digitsA - digitsB;
+
+                // Then carrying
+                const carryA = a.needsCarrying ? 1 : 0;
+                const carryB = b.needsCarrying ? 1 : 0;
+                if (carryA !== carryB) return carryA - carryB;
+            } else if (op === 'div') {
+                // Division sorting: total digits first
+                const digitsA = a.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                const digitsB = b.operands.reduce((acc, n) => acc + n.toString().length, 0);
+                if (digitsA !== digitsB) return digitsA - digitsB;
+
+                // Then complexity (carry-over remainders)
+                const complexA = a.isComplex ? 1 : 0;
+                const complexB = b.isComplex ? 1 : 0;
+                if (complexA !== complexB) return complexA - complexB;
             }
 
             // Default: Sort by operand sum (natural progression)
@@ -69,6 +89,49 @@ const arithmeticGenerator = {
                 let d1 = parseInt(s1[i] || 0);
                 let d2 = parseInt(s2[i] || 0);
                 if (d1 + d2 >= 10) return true;
+            }
+            return false;
+        },
+        needsMultiCarrying: (a, b) => {
+            let s1 = a.toString().split('').reverse();
+            let s2 = b.toString().split('').reverse();
+            // Check for carrying in any column multiplication or final addition
+            // For simplicity, detect if any digit multiplication >= 10
+            // or if any column addition in the process would carry
+            for (let i = 0; i < s2.length; i++) {
+                let d2 = parseInt(s2[i]);
+                let carry = 0;
+                for (let j = 0; j < s1.length; j++) {
+                    let d1 = parseInt(s1[j]);
+                    let prod = (d1 * d2) + carry;
+                    if (prod >= 10) return true;
+                    carry = Math.floor(prod / 10);
+                }
+            }
+            // Also check for carrying in addition if s2 has multiple digits
+            if (s2.length > 1) {
+                // Any multi-digit multiplication involves addition steps
+                // which often imply a higher difficulty even if individual prods are small
+                // but we keep the logic consistent with 'carrying'
+                return true;
+            }
+            return false;
+        },
+        isComplexDivision: (dividend, divisor) => {
+            // A division is "simple" if every digit of the dividend (from left to right)
+            // is divisible by the divisor OR if the current prefix is divisible.
+            // Pedagogically, if you can divide the first digit(s) without carrying 
+            // a remainder to the next, it's easier.
+            let s = dividend.toString();
+            let remainder = 0;
+            for (let i = 0; i < s.length; i++) {
+                let current = remainder * 10 + parseInt(s[i]);
+                if (current < divisor && i < s.length - 1) {
+                    remainder = current;
+                    continue;
+                }
+                if (current % divisor !== 0) return true; // Remainder exists, will carry over
+                remainder = 0; // Perfectly divisible at this step
             }
             return false;
         },
@@ -314,18 +377,21 @@ const arithmeticGenerator = {
 
         const res = cases[Math.floor(Math.random() * cases.length)]();
         const answer = res.n1 * res.n2;
+        const needsCarrying = this.utils.needsMultiCarrying(res.n1, res.n2);
 
         if (level === 'dasar') {
             return {
                 ...this.formatHorizontalMultiplication(res.n1, res.n2, answer),
                 difficulty: res.diff,
-                operands: [res.n1, res.n2]
+                operands: [res.n1, res.n2],
+                needsCarrying: needsCarrying
             };
         } else {
             return {
                 ...this.formatVertical(res.n1, res.n2, '×', answer),
                 difficulty: res.diff,
-                operands: [res.n1, res.n2]
+                operands: [res.n1, res.n2],
+                needsCarrying: needsCarrying
             };
         }
     },
@@ -334,15 +400,15 @@ const arithmeticGenerator = {
         let cases = [];
         if (level === 'dasar') {
             cases = [
-                () => { let q = this.utils.getRandomInt(2, 9), d = this.utils.getRandomInt(1, 9); return [q * d, d, q, 1]; },
-                () => { let q = this.utils.getRandomInt(2, 9), d = this.utils.getRandomInt(4, 9); return [q * d, d, q, 2]; },
-                () => { let q = this.utils.getRandomInt(1, 9) * 10, d = this.utils.getRandomInt(2, 5); return [q * d, d, q, 3]; }
+                () => { let q = this.utils.getRandomInt(2, 9), d = this.utils.getRandomInt(2, 9); return [q * d, d, q, 1]; },
+                () => { let q = this.utils.getRandomInt(11, 19), d = this.utils.getRandomInt(2, 5); return [q * d, d, q, 2]; },
+                () => { let q = this.utils.getRandomInt(2, 9), d = this.utils.getRandomInt(10, 11); return [q * d, d, q, 3]; }
             ];
         } else if (level === 'menengah') {
             cases = [
-                () => { let q = this.utils.getRandomInt(11, 25), d = this.utils.getRandomInt(2, 4); return [q * d, d, q, 4]; },
-                () => [482, 2, 241, 5],
-                () => { let q = this.utils.getRandomInt(2, 6), d = this.utils.getRandomInt(11, 15); return [q * d, d, q, 6]; }
+                () => { let q = this.utils.getRandomInt(20, 50), d = this.utils.getRandomInt(6, 9); return [q * d, d, q, 4]; },
+                () => { let q = this.utils.getRandomInt(100, 450), d = this.utils.getRandomInt(2, 2); return [q * d, d, q, 5]; },
+                () => { let q = this.utils.getRandomInt(50, 99), d = this.utils.getRandomInt(3, 5); return [q * d, d, q, 6]; }
             ];
         } else {
             cases = [
@@ -353,13 +419,14 @@ const arithmeticGenerator = {
         }
 
         const [dividend, divisor, quotient, diff] = cases[Math.floor(Math.random() * cases.length)]();
+        const isComplex = this.utils.isComplexDivision(dividend, divisor);
         let res;
-        if (level === 'dasar') {
+        if (level === 'dasar' || level === 'menengah') {
             res = this.formatHorizontalDivision(dividend, divisor, quotient);
         } else {
             res = this.formatDivision(dividend, divisor, quotient);
         }
-        return { ...res, difficulty: diff, operands: [dividend, divisor] };
+        return { ...res, difficulty: diff, operands: [dividend, divisor], isComplex: isComplex };
     },
 
     formatHorizontalAddition: function (nums, answer) {
@@ -399,7 +466,7 @@ const arithmeticGenerator = {
         return {
             questionHTML: `
                 <div class="horizontal-math" style="font-size: 1.5rem; font-family: var(--font-mono);">
-                    ${n1} : ${n2} = ...
+                    ${n1} &divide; ${n2} = ...
                 </div>
             `,
             answerHTML: `<span class="answer-text">${answer}</span>`
