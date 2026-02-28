@@ -615,26 +615,32 @@ button.btn-secondary:hover {
         color: var(--secondary-color);
     }
 
-    .floating-toggle {
+    .mobile-floating-actions {
         position: fixed;
         bottom: 1.5rem;
         right: 1.5rem;
-        width: 50px;
-        /* Reduced from 60px */
-        height: 50px;
-        /* Reduced from 60px */
+        display: flex;
+        gap: 0.75rem;
+        z-index: 900;
+    }
+
+    .floating-btn {
+        width: 44px;
+        /* Reduced from 50px */
+        height: 44px;
+        /* Reduced from 50px */
         border-radius: 50%;
         background: var(--primary-color);
         color: white;
         border: none;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        z-index: 900;
-        font-size: 1.25rem;
-        /* Reduced from 1.5rem */
+        font-size: 1.1rem;
+        /* Slightly smaller font */
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        padding: 0;
     }
 
     .preview-area {
