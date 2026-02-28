@@ -80,6 +80,7 @@
                 <div class="sidebar-header">
                     <button onclick="app.navigateToDashboard()" class="back-btn">← Kembali</button>
                     <h2 id="current-topic-title">Topik</h2>
+                    <button id="sidebar-close" class="mobile-only close-btn" onclick="app.toggleSidebar()">✕</button>
                 </div>
 
                 <div class="config-group">
@@ -108,6 +109,11 @@
                     <button onclick="window.print()" class="btn-primary">Cetak / Simpan PDF</button>
                 </div>
             </aside>
+
+            <button id="mobile-config-toggle" class="mobile-only floating-toggle" onclick="app.toggleSidebar()"
+                title="Pengaturan">
+                ⚙️
+            </button>
 
             <section class="preview-area">
                 <div id="worksheet-preview" class="worksheet-page">

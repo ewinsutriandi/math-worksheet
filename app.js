@@ -10,7 +10,41 @@ const app = {
 
     init: function () {
         console.log("Math Worksheet Generator Initialized");
-        // Attach event listeners if needed
+        window.addEventListener('resize', () => this.handleResize());
+    },
+
+    toggleSidebar: function () {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('open');
+    },
+
+    handleResize: function () {
+        const page = document.querySelector('.worksheet-page');
+        const container = document.querySelector('.preview-area');
+        if (!page || !container) return;
+
+        if (window.innerWidth <= 768) {
+            const containerWidth = container.offsetWidth - 32; // 1rem padding
+            const pageWidth = 210; // mm
+            // Convert mm to px roughly (3.78 px per mm)
+            const pageWidthPx = pageWidth * 3.78;
+            const scale = containerWidth / pageWidthPx;
+
+            if (scale < 1) {
+                page.style.transformOrigin = 'top center';
+                page.style.transform = `scale(${scale})`;
+                // Maintain container height since scale doesn't affect flow
+                container.style.height = `${page.offsetHeight * scale + 40}px`;
+            } else {
+                page.style.transformOrigin = 'top center';
+                page.style.transform = 'none';
+                container.style.height = 'auto';
+            }
+        } else {
+            page.style.transformOrigin = 'top center';
+            page.style.transform = 'none';
+            container.style.height = 'auto';
+        }
     },
 
     selectTopic: function (topic, subtopic) {
@@ -29,6 +63,7 @@ const app = {
     navigateToDashboard: function () {
         document.getElementById('generator-view').classList.remove('active');
         document.getElementById('dashboard-view').classList.add('active');
+        document.querySelector('.sidebar').classList.remove('open');
         this.state.currentTopic = null;
     },
 
@@ -227,10 +262,13 @@ const app = {
 
         // Toggle Answer Key Page
         if (this.state.config.includeAnswerKey) {
-            answerKeyPage.style.display = 'block'; // Or flex/grid depending on layout
+            answerKeyPage.style.display = 'block';
         } else {
             answerKeyPage.style.display = 'none';
         }
+
+        // Apply scale for mobile
+        setTimeout(() => this.handleResize(), 50);
     }
 };
 
