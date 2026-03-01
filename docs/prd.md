@@ -34,15 +34,14 @@ Provide a fast, simple website that allows users to generate and print elementar
 ### In Scope (MVP)
 - Static website (HTML/CSS/JS only)
 - Client-side worksheet generation
-- Printable worksheet layout
+- Mobile-first responsive layout (Centered worksheet, toggle sidebar)
+- Printable worksheet layout (A4 optimized)
 - Answer key generation
-- Standard paper sizes (A4, Letter)
 
 ### Out of Scope
 - User accounts or login
 - Saving worksheets online
-- Progress tracking
-- Mobile app
+- Native mobile app (Web-only)
 
 ---
 
@@ -50,14 +49,10 @@ Provide a fast, simple website that allows users to generate and print elementar
 
 Each topic defines difficulty levels and question ranges.
 
-| Kategori        | Topik           | Sub-topik / Level                                                                                                                               | Spesifikasi Kesulitan                                        |
-| :-------------- | :-------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------- |
-| **Aritmatika**  | **Semua Topik** | 1. Dasar (1-digit foundation)<br>2. Menengah (2-digit focus)<br>3. Mahir (3-digit / complex)<br>See: [topic_arithmetic.md](topic_arithmetic.md) | Mencakup penjumlahan, pengurangan, perkalian, dan pembagian. |
-| **Pecahan**     | **Dasar**       | 1. Mengenal Pecahan (Visual)<br>2. Pecahan Senilai<br>3. Menyederhanakan Pecahan                                                                | Pemahaman konsep dasar.                                      |
-|                 | **Menengah**    | 4. Membandingkan Pecahan<br>5. Penjumlahan & Pengurangan<br>6. Pecahan Campuran                                                                 | Format campuran dan operasi dasar.                           |
-|                 | **Mahir**       | 7. Perkalian & Pembagian<br>8. Desimal<br>9. Persen                                                                                             | Operasi kompleks dan konversi.                               |
-| **Soal Cerita** | **Aplikasi**    | L1: Operasi Campuran (+/-)<br>L2: Soal Cerita Multi-langkah                                                                                     | Menggunakan konteks Indonesia.                               |
-| **Campuran**    | **Review**      | Pengguna memilih campuran topik dan sub-topik                                                                                                   | Mengacak tipe soal yang dipilih.                             |
+| **Aritmatika**  | **Semua Topik** | Dasar, Menengah, Mahir | See: [topic_arithmetic.md](topic_arithmetic.md) |
+| **Pecahan**     | **Visualisasi** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
+|                 | **Senilai**     | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
+|                 | **Sederhana**   | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
 
 ---
 

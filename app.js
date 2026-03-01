@@ -77,7 +77,9 @@ const app = {
             'subtraction': 'Pengurangan',
             'multiplication': 'Perkalian',
             'division': 'Pembagian',
-            'fundamental': 'Pecahan Dasar'
+            'frac-visual': 'Visualisasi',
+            'frac-equivalent': 'Pecahan Senilai',
+            'frac-simplest': 'Penyederhanaan'
         };
 
         const topicName = titleMap[this.state.currentTopic] || this.state.currentTopic;
@@ -90,7 +92,9 @@ const app = {
         else if (currentSub.startsWith('sub-')) subName = 'Pengurangan';
         else if (currentSub.startsWith('mul-')) subName = 'Perkalian';
         else if (currentSub.startsWith('div-')) subName = 'Pembagian';
-        else if (currentSub.startsWith('visual') || currentSub === 'equivalent' || currentSub === 'simplest') subName = 'Pecahan Dasar';
+        else if (currentSub.startsWith('frac-visual')) subName = 'Visualisasi';
+        else if (currentSub.startsWith('frac-equivalent')) subName = 'Pecahan Senilai';
+        else if (currentSub.startsWith('frac-simplest')) subName = 'Penyederhanaan';
 
         const breadcrumbTitle = subName ? `${topicName} - ${subName}` : topicName;
 
@@ -103,11 +107,19 @@ const app = {
 
         let subtopics = [];
         if (this.state.currentTopic === 'fraction') {
-            if (this.state.currentSubtopic === 'fundamental' || this.state.currentSubtopic.startsWith('visual')) {
+            const sub = this.state.currentSubtopic || '';
+            const prefix = sub.split('-').slice(0, 2).join('-'); // e.g., 'frac-visual'
+
+            if (prefix === 'frac-visual') {
                 subtopics = [
-                    { value: 'visual', label: 'Mengenal Pecahan' },
-                    { value: 'equivalent', label: 'Pecahan Senilai' },
-                    { value: 'simplest', label: 'Menyederhanakan' }
+                    { value: `${prefix}-sederhana`, label: 'Sederhana' },
+                    { value: `${prefix}-kompleks`, label: 'Kompleks' }
+                ];
+            } else {
+                // Both Senilai and Sederhana now use Dasar/Mahir
+                subtopics = [
+                    { value: `${prefix}-dasar`, label: 'Dasar' },
+                    { value: `${prefix}-mahir`, label: 'Mahir' }
                 ];
             }
         } else if (this.state.currentTopic === 'arithmetic') {
