@@ -2,20 +2,38 @@ const fractionGenerator = {
     generate: function (subtopic, count) {
         const problems = [];
         const [topic, sub, level] = subtopic.split('-'); // e.g., 'frac-visual-sederhana'
+        const seen = new Set();
+        let attempts = 0;
+        const maxAttempts = count * 2;
 
-        for (let i = 0; i < count; i++) {
+        while (problems.length < count && attempts < maxAttempts) {
+            attempts++;
             let problem;
             if (sub === 'visual') {
                 problem = this.generateVisualProblem(level);
             } else if (sub === 'equivalent') {
                 problem = this.generateEquivalentProblem(level);
+            } else if (sub === 'compare') {
+                problem = this.generateComparingProblem(level);
             } else if (sub === 'simplest') {
                 problem = this.generateSimplestFormProblem(level);
             } else {
                 problem = this.generateVisualProblem(level);
             }
-            problems.push(problem);
+
+            // Create a unique key for duplicate prevention
+            const key = JSON.stringify(problem.questionHTML);
+            if (!seen.has(key)) {
+                seen.add(key);
+                problems.push(problem);
+            }
         }
+
+        // Sorting by sum of denominators if it's a comparison problem
+        if (sub === 'compare') {
+            problems.sort((a, b) => (a.denom1 + a.denom2) - (b.denom1 + b.denom2));
+        }
+
         return problems;
     },
 
@@ -231,6 +249,65 @@ const fractionGenerator = {
                 </div>
             `,
             answerHTML: `<span class="fraction-text"><span class="numerator">${finalNum}</span><span class="denominator">${finalDenom}</span></span>`
+        };
+    },
+
+    generateComparingProblem: function (level) {
+        let n1, d1, n2, d2;
+
+        if (level === 'sederhana') {
+            const isSameDenom = Math.random() > 0.5;
+            if (isSameDenom) {
+                // Same Denominator
+                // Must be at least 3 to have two distinct numerators (1 and 2)
+                d1 = d2 = this.utils.getRandomInt(3, 25);
+                n1 = this.utils.getRandomInt(1, d1 - 1); // numerator < denominator
+                do {
+                    n2 = this.utils.getRandomInt(1, d2 - 1);
+                } while (n1 === n2);
+            } else {
+                // Same Numerator
+                // n1 must be at most 23 to allow two distinct denoms up to 25
+                n1 = n2 = this.utils.getRandomInt(1, 23);
+                d1 = this.utils.getRandomInt(n1 + 1, 24);
+                do {
+                    d2 = this.utils.getRandomInt(n1 + 1, 25);
+                } while (d1 === d2);
+            }
+        } else {
+            // Kompleks: Random denoms up to 25
+            // Safety counter to prevent infinite loop
+            let attempts = 0;
+            do {
+                attempts++;
+                d1 = this.utils.getRandomInt(2, 25);
+                n1 = this.utils.getRandomInt(1, d1 - 1); // proper fraction
+                d2 = this.utils.getRandomInt(2, 25);
+                n2 = this.utils.getRandomInt(1, d2 - 1); // proper fraction
+                // Avoid same fractions, equivalent fractions or same num/denom
+            } while (attempts < 100 && (d1 === d2 || n1 === n2 || (n1 * d2 === n2 * d1)));
+        }
+
+        const cross1 = n1 * d2;
+        const cross2 = n2 * d1;
+        let symbol = '=';
+        if (cross1 > cross2) symbol = '>';
+        else if (cross1 < cross2) symbol = '<';
+
+        return {
+            denom1: d1,
+            denom2: d2,
+            questionHTML: `
+                <div class="fraction-problem">
+                    <p style="margin-bottom: 10px;">Bandingkan pecahan berikut dengan tanda &lt;, &gt;, atau = :</p>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+                        <span class="fraction-text"><span class="numerator">${n1}</span><span class="denominator">${d1}</span></span>
+                        <div style="width: 35px; height: 35px; border: 1.5px solid #bbb; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #bbb; font-size: 0.8rem;">...</div>
+                        <span class="fraction-text"><span class="numerator">${n2}</span><span class="denominator">${d2}</span></span>
+                    </div>
+                </div>
+            `,
+            answerHTML: `<span style="font-weight: bold; font-size: 1.2rem;">${symbol}</span>`
         };
     },
 };

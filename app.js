@@ -79,6 +79,7 @@ const app = {
             'division': 'Pembagian',
             'frac-visual': 'Visualisasi',
             'frac-equivalent': 'Pecahan Senilai',
+            'frac-compare': 'Membandingkan',
             'frac-simplest': 'Penyederhanaan'
         };
 
@@ -94,6 +95,7 @@ const app = {
         else if (currentSub.startsWith('div-')) subName = 'Pembagian';
         else if (currentSub.startsWith('frac-visual')) subName = 'Visualisasi';
         else if (currentSub.startsWith('frac-equivalent')) subName = 'Pecahan Senilai';
+        else if (currentSub.startsWith('frac-compare')) subName = 'Membandingkan';
         else if (currentSub.startsWith('frac-simplest')) subName = 'Penyederhanaan';
 
         const breadcrumbTitle = subName ? `${topicName} - ${subName}` : topicName;
@@ -110,7 +112,7 @@ const app = {
             const sub = this.state.currentSubtopic || '';
             const prefix = sub.split('-').slice(0, 2).join('-'); // e.g., 'frac-visual'
 
-            if (prefix === 'frac-visual') {
+            if (prefix === 'frac-visual' || prefix === 'frac-compare') {
                 subtopics = [
                     { value: `${prefix}-sederhana`, label: 'Sederhana' },
                     { value: `${prefix}-kompleks`, label: 'Kompleks' }

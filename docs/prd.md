@@ -52,6 +52,7 @@ Each topic defines difficulty levels and question ranges.
 | **Aritmatika**  | **Semua Topik** | Dasar, Menengah, Mahir | See: [topic_arithmetic.md](topic_arithmetic.md) |
 | **Pecahan**     | **Visualisasi** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
 |                 | **Senilai**     | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
+|                 | **Membandingkan** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
 |                 | **Sederhana**   | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
 
 ---

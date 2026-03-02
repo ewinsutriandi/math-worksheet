@@ -53,6 +53,18 @@ Focus on reducing fractions to their simplest form using GCD.
 2. **Step Count**: Fractions that require one-step reduction come before those requiring multiple steps.
 3. **GCD Complexity**: Smaller GCDs come before larger ones.
 
+## 4. Membandingkan Pecahan (Comparing)
+
+Students insert comparison symbols ($>, <, =$) between two fractions.
+
+| Level         | Description                                    | Example                      |
+| :------------ | :--------------------------------------------- | :--------------------------- |
+| **Sederhana** | Same denominator OR same numerator (up to 25). | 12/25 vs 13/25, 7/15 vs 7/20 |
+| **Kompleks**  | Random (no common num/denom, up to 25).        | 11/13 vs 14/17               |
+
+### Sorting Logic
+1. **Denominator Sum**: Questions are sorted by the sum of their denominators ($Denominator_1 + Denominator_2$) in ascending order.
+
 ---
 
 ## 4. Implementation Notes
