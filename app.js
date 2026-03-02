@@ -101,7 +101,8 @@ const app = {
         const breadcrumbTitle = subName ? `${topicName} - ${subName}` : topicName;
 
         document.getElementById('current-topic-title').textContent = breadcrumbTitle;
-        document.getElementById('worksheet-title').textContent = `Lembar Kerja ${breadcrumbTitle}`;
+        document.getElementById('worksheet-title').textContent = "Lembar Kerja Matematika";
+        document.getElementById('worksheet-subtitle').textContent = breadcrumbTitle;
 
         // Populate Subtopic Chips
         const chipsContainer = document.getElementById('subtopic-chips');
@@ -194,12 +195,33 @@ const app = {
     updateConfig: function () {
         this.state.config.includeAnswerKey = document.getElementById('include-answer-key').checked;
 
-        // Find active subtopic chip label
-        const activeSubtopicChip = document.querySelector('#subtopic-chips .chip.active');
-        const subtitle = activeSubtopicChip ? activeSubtopicChip.textContent : '';
+        // Update subtitles with the full topic - level breadcrumb if needed, 
+        // but user specifically asked for "Topic - subtopic" for line 2.
+        // Let's refine breadcrumbTitle creation to be available here or recalculate.
+        const titleMap = { 'fraction': 'Pecahan', 'arithmetic': 'Aritmatika' };
+        const subtopicNameMap = {
+            'addition': 'Penjumlahan', 'subtraction': 'Pengurangan', 'multiplication': 'Perkalian', 'division': 'Pembagian',
+            'frac-visual': 'Visualisasi', 'frac-equivalent': 'Pecahan Senilai', 'frac-compare': 'Membandingkan', 'frac-simplest': 'Penyederhanaan'
+        };
+        const topicName = titleMap[this.state.currentTopic] || this.state.currentTopic;
+        const currentSub = this.state.currentSubtopic || '';
+        let subName = '';
+        if (subtopicNameMap[currentSub]) subName = subtopicNameMap[currentSub];
+        else if (currentSub.includes('add')) subName = 'Penjumlahan';
+        else if (currentSub.includes('sub')) subName = 'Pengurangan';
+        else if (currentSub.includes('mul')) subName = 'Perkalian';
+        else if (currentSub.includes('div')) subName = 'Pembagian';
+        else if (currentSub.includes('visual')) subName = 'Visualisasi';
+        else if (currentSub.includes('equivalent')) subName = 'Pecahan Senilai';
+        else if (currentSub.includes('compare')) subName = 'Membandingkan';
+        else if (currentSub.includes('simplest')) subName = 'Penyederhanaan';
 
-        document.getElementById('worksheet-subtitle').textContent = subtitle;
-        document.getElementById('answer-key-subtitle').textContent = subtitle;
+        const breadcrumb = subName ? `${topicName} - ${subName}` : topicName;
+        const activeSubtopicChip = document.querySelector('#subtopic-chips .chip.active');
+        const levelLabel = activeSubtopicChip ? activeSubtopicChip.textContent : '';
+
+        document.getElementById('worksheet-subtitle').textContent = `${breadcrumb} (${levelLabel})`;
+        document.getElementById('answer-key-subtitle').textContent = `${breadcrumb} (${levelLabel})`;
 
         this.regenerate();
     },

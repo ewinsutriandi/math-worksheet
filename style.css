@@ -342,14 +342,19 @@ button.btn-secondary:hover {
 }
 
 .header-left h1 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    /* Decreased */
     margin-bottom: 0.2rem;
     color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .header-left p {
-    font-size: 0.9rem;
-    color: var(--secondary-color);
+    font-size: 1rem;
+    /* Adjusted */
+    font-weight: 500;
+    color: var(--primary-color);
 }
 
 .header-right {
@@ -363,6 +368,8 @@ button.btn-secondary:hover {
     border-bottom: 1px dashed var(--border-color);
     padding-bottom: 2px;
 }
+
+
 
 .problems-grid {
     display: grid;
