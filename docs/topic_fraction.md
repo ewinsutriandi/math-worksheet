@@ -67,7 +67,25 @@ Students insert comparison symbols ($>, <, =$) between two fractions.
 
 ---
 
-## 4. Implementation Notes
+## 5. Penjumlahan & Pengurangan Pecahan (Add/Sub)
+
+Students perform addition or subtraction of fractions.
+
+| Level         | Description                                                   | Example                     |
+| :------------ | :------------------------------------------------------------ | :-------------------------- |
+| **Visual**    | Graphical representation. Students shade the result box.      | Shaded Pie + Shaded Pie = ? |
+| **Sederhana** | Same denominator or one denominator is a multiple of another. | 1/5 + 2/5; 1/2 - 1/4        |
+| **Kompleks**  | Random denominators or shared factors (GCD > 1).              | 1/6 + 1/8; 2/3 - 1/5        |
+
+### Implementation Notes:
+- **Visual**: Use the SVG generator for two shapes and an empty third shape for the answer.
+- **Sederhana**: Ensure the multiple case is clear (e.g., 3 and 6, 4 and 12).
+- **Kompleks**: Toggle between "Co-prime" denoms and "Shared Factor" denoms.
+- **Results**: Ensure addition results stay within 1 (proper fractions) unless specified later. Subtraction must result in a positive value.
+
+---
+
+## 6. Implementation Notes
 - **Visuals**: Use SVG for Pie and Bar charts with light grey shading (`#E0E0E0`).
 - **Logic**: Ensure all generated fractions have a valid solution (e.g., for Simplification, GCD must be > 1).
 - **Duplicate Prevention**: Use `f:num/den:topic` as unique identifier.

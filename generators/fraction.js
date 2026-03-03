@@ -15,6 +15,8 @@ const fractionGenerator = {
                 problem = this.generateEquivalentProblem(level);
             } else if (sub === 'compare') {
                 problem = this.generateComparingProblem(level);
+            } else if (sub === 'addsub') {
+                problem = this.generateAddSubProblem(level, problems.length);
             } else if (sub === 'simplest') {
                 problem = this.generateSimplestFormProblem(level);
             } else {
@@ -80,14 +82,15 @@ const fractionGenerator = {
         };
     },
 
-    renderVisual: function (numerator, denominator, isCircle) {
+    renderVisual: function (numerator, denominator, isCircle, forceOneShape = false) {
         const size = 100;
         const spacing = 10;
-        const totalShapes = Math.ceil(numerator / denominator);
+        let totalShapes = Math.ceil(numerator / denominator);
+        if (forceOneShape) totalShapes = Math.max(1, totalShapes);
         let html = '';
 
         for (let s = 0; s < totalShapes; s++) {
-            const currentNumerator = Math.min(denominator, numerator - (s * denominator));
+            const currentNumerator = Math.max(0, Math.min(denominator, numerator - (s * denominator)));
             if (isCircle) {
                 html += this.renderCircle(currentNumerator, denominator, size);
             } else {
@@ -308,6 +311,119 @@ const fractionGenerator = {
                 </div>
             `,
             answerHTML: `<span style="font-weight: bold; font-size: 1.2rem;">${symbol}</span>`
+        };
+    },
+
+    generateAddSubProblem: function (level, index = 0) {
+        let n1, d1, n2, d2, op;
+        const isAddition = index % 2 === 0;
+        op = isAddition ? '+' : '-';
+
+        if (level === 'visual') {
+            d1 = d2 = this.utils.getRandomInt(2, 10);
+            if (isAddition) {
+                n1 = this.utils.getRandomInt(1, d1 - 1);
+                n2 = this.utils.getRandomInt(1, d1 - n1);
+            } else {
+                n1 = this.utils.getRandomInt(2, d1 - 1);
+                n2 = this.utils.getRandomInt(1, n1 - 1);
+            }
+
+            const isCircle = Math.random() > 0.5;
+            const v1 = this.renderVisual(n1, d1, isCircle);
+            const v2 = this.renderVisual(n2, d1, isCircle);
+            const vAns = this.renderVisual(0, d1, isCircle, true); // Empty result box, forced outline
+
+            const resN = isAddition ? (n1 + n2) : (n1 - n2);
+            const commonGCD = this.utils.gcd(resN, d1);
+            const finalAns = this.formatFraction(resN / commonGCD, d1 / commonGCD);
+
+            return {
+                denom1: d1, denom2: d1,
+                questionHTML: `
+                    <div class="fraction-problem">
+                        <p style="margin-bottom: 5px;">Berapakah hasil dari:</p>
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            ${v1} <span style="font-size: 1.5rem; font-weight: bold;">${op}</span> ${v2} <span style="font-size: 1.5rem; font-weight: bold;">=</span> ${vAns}
+                        </div>
+                        <p style="font-size: 0.8rem; color: #888; margin-top: 5px;">(Arsirlah kotak terakhir)</p>
+                    </div>
+                `,
+                answerHTML: finalAns
+            };
+        } else if (level === 'sederhana') {
+            const isSameDenom = Math.random() > 0.6;
+            if (isSameDenom) {
+                d1 = d2 = this.utils.getRandomInt(2, 20);
+                if (isAddition) {
+                    n1 = this.utils.getRandomInt(1, d1 - 1);
+                    n2 = this.utils.getRandomInt(1, d1 - n1);
+                } else {
+                    n1 = this.utils.getRandomInt(2, d1 - 1);
+                    n2 = this.utils.getRandomInt(1, n1 - 1);
+                }
+            } else {
+                // Multiple denominator
+                d1 = this.utils.getRandomInt(2, 10);
+                const mult = this.utils.getRandomInt(2, 3);
+                d2 = d1 * mult;
+                if (isAddition) {
+                    n1 = this.utils.getRandomInt(1, d1 - 1);
+                    n2 = this.utils.getRandomInt(1, d2 - (n1 * mult));
+                } else {
+                    n1 = this.utils.getRandomInt(1, d1 - 1);
+                    n2 = this.utils.getRandomInt(1, (n1 * mult) - 1);
+                }
+            }
+        } else {
+            // Kompleks
+            let attempts = 0;
+            const hasCommonFactor = Math.random() > 0.5;
+
+            do {
+                attempts++;
+                if (hasCommonFactor) {
+                    const common = this.utils.getRandomInt(2, 4);
+                    d1 = common * this.utils.getRandomInt(2, 5);
+                    d2 = common * this.utils.getRandomInt(2, 5);
+                } else {
+                    d1 = this.utils.getRandomInt(2, 12);
+                    d2 = this.utils.getRandomInt(2, 12);
+                }
+
+                if (d1 === d2) continue;
+                if (!hasCommonFactor && this.utils.gcd(d1, d2) > 1) continue;
+
+                n1 = this.utils.getRandomInt(1, d1 - 1);
+                n2 = this.utils.getRandomInt(1, d2 - 1);
+
+                // Use cross-multiplication for exact integer comparison
+                const checkAddition = (n1 * d2 + n2 * d1) <= (d1 * d2);
+                const checkSubtraction = (n1 * d2 - n2 * d1) > 0;
+
+                if (isAddition && checkAddition) break;
+                if (!isAddition && checkSubtraction) break;
+
+            } while (attempts < 100);
+        }
+
+        const resN = isAddition ? (n1 * d2 + n2 * d1) : (n1 * d2 - n2 * d1);
+        const resD = d1 * d2;
+        const commonGCD = this.utils.gcd(resN, resD);
+        const finalAns = this.formatFraction(resN / commonGCD, resD / commonGCD);
+
+        return {
+            denom1: d1, denom2: d2,
+            questionHTML: `
+                <div class="fraction-problem" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span class="fraction-text"><span class="numerator">${n1}</span><span class="denominator">${d1}</span></span>
+                    <span style="font-size: 1.2rem; font-weight: bold;">${op}</span>
+                    <span class="fraction-text"><span class="numerator">${n2}</span><span class="denominator">${d2}</span></span>
+                    <span style="font-size: 1.2rem; font-weight: bold;">=</span>
+                    <div style="width: 40px; height: 1px; border-bottom: 2px solid #bbb; margin-top: 15px;"></div>
+                </div>
+            `,
+            answerHTML: finalAns
         };
     },
 };

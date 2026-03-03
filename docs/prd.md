@@ -53,6 +53,7 @@ Each topic defines difficulty levels and question ranges.
 | **Pecahan**     | **Visualisasi** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
 |                 | **Senilai**     | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
 |                 | **Membandingkan** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
+|                 | **Tambah & Kurang** | Visual, Sederhana, Kompleks | See: [topic_fraction.md](topic_fraction.md) |
 |                 | **Sederhana**   | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
 
 ---
