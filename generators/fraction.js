@@ -17,6 +17,8 @@ const fractionGenerator = {
                 problem = this.generateComparingProblem(level);
             } else if (sub === 'addsub') {
                 problem = this.generateAddSubProblem(level, problems.length);
+            } else if (sub === 'muldiv') {
+                problem = this.generateMulDivProblem(level, problems.length);
             } else if (sub === 'simplest') {
                 problem = this.generateSimplestFormProblem(level);
             } else {
@@ -418,6 +420,67 @@ const fractionGenerator = {
                 <div class="fraction-problem" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
                     <span class="fraction-text"><span class="numerator">${n1}</span><span class="denominator">${d1}</span></span>
                     <span style="font-size: 1.2rem; font-weight: bold;">${op}</span>
+                    <span class="fraction-text"><span class="numerator">${n2}</span><span class="denominator">${d2}</span></span>
+                    <span style="font-size: 1.2rem; font-weight: bold;">=</span>
+                    <div style="width: 40px; height: 1px; border-bottom: 2px solid #bbb; margin-top: 15px;"></div>
+                </div>
+            `,
+            answerHTML: finalAns
+        };
+    },
+
+    generateMulDivProblem: function (level, index = 0) {
+        let n1, d1, n2, d2, symbol;
+        const isMultiplication = level === 'perkalian';
+        symbol = isMultiplication ? '×' : '÷';
+
+        // Requirement: Half (approx) should result in fractions that MUST be simplified.
+        // We use index % 2 === 0 to target "must simplify" cases.
+        const mustSimplify = index % 2 === 0;
+
+        let attempts = 0;
+        do {
+            attempts++;
+            d1 = this.utils.getRandomInt(2, 10);
+            n1 = this.utils.getRandomInt(1, d1 - 1);
+            d2 = this.utils.getRandomInt(2, 10);
+            n2 = this.utils.getRandomInt(1, d2 - 1);
+
+            let resN, resD;
+            if (isMultiplication) {
+                resN = n1 * n2;
+                resD = d1 * d2;
+            } else {
+                resN = n1 * d2;
+                resD = d1 * n2;
+            }
+
+            const currentGCD = this.utils.gcd(resN, resD);
+            const isSimplifiable = currentGCD > 1;
+
+            if (mustSimplify && isSimplifiable) break;
+            if (!mustSimplify && !isSimplifiable) break;
+
+            // Failsafe
+        } while (attempts < 50);
+
+        let resN, resD;
+        if (isMultiplication) {
+            resN = n1 * n2;
+            resD = d1 * d2;
+        } else {
+            resN = n1 * d2;
+            resD = d1 * n2;
+        }
+        const commonGCD = this.utils.gcd(resN, resD);
+        const finalAns = this.formatFraction(resN / commonGCD, resD / commonGCD);
+
+        return {
+            denom1: d1, denom2: d2,
+            questionHTML: `
+                <div class="fraction-problem" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <span class="fraction-text"><span class="numerator">${n1}</span><span class="denominator">${d1}</span></span>
+                    <span style="font-size: 1.2rem; font-weight: bold;">${symbol}</span>
                     <span class="fraction-text"><span class="numerator">${n2}</span><span class="denominator">${d2}</span></span>
                     <span style="font-size: 1.2rem; font-weight: bold;">=</span>
                     <div style="width: 40px; height: 1px; border-bottom: 2px solid #bbb; margin-top: 15px;"></div>

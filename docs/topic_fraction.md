@@ -83,9 +83,25 @@ Students perform addition or subtraction of fractions.
 - **Kompleks**: Toggle between "Co-prime" denoms and "Shared Factor" denoms.
 - **Results**: Ensure addition results stay within 1 (proper fractions) unless specified later. Subtraction must result in a positive value.
 
+## 6. Perkalian & Pembagian Pecahan (Mul/Div)
+Students perform multiplication or division of fractions.
+
+| Level         | Description                                             | Example              |
+| :------------ | :------------------------------------------------------ | :------------------- |
+| **Perkalian** | Multiplying two proper fractions.                       | 1/2 x 3/4; 2/5 x 5/6 |
+| **Pembagian** | Dividing two proper fractions (multiply by reciprocal). | 1/2 ÷ 1/4; 3/5 ÷ 2/3 |
+
+### Implementation Notes:
+- **Simplification Requirement**: For each set of 20 questions, at least 10 must result in a fraction that is NOT in simplest form (GCD > 1).
+- **Number Range**: Numerators and denominators range from 1 to 12 to keep products manageable (max denom 144).
+- **Logic**: 
+    - For Multiplication: $n_1/d_1 \times n_2/d_2 = (n_1 \times n_2) / (d_1 \times d_2)$.
+    - For Division: $n_1/d_1 \div n_2/d_2 = (n_1 \times d_2) / (d_1 \times n_2)$.
+- **Simplified cases**: To force a "must simplify" result, ensure either $(n_1, d_2)$ or $(n_2, d_1)$ share a common factor (cross-simplification) OR $(n_1, d_1)$ or $(n_2, d_2)$ are not in simplest form.
+
 ---
 
-## 6. Implementation Notes
+## 7. Implementation Notes
 - **Visuals**: Use SVG for Pie and Bar charts with light grey shading (`#E0E0E0`).
 - **Logic**: Ensure all generated fractions have a valid solution (e.g., for Simplification, GCD must be > 1).
 - **Duplicate Prevention**: Use `f:num/den:topic` as unique identifier.

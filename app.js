@@ -81,6 +81,7 @@ const app = {
             'frac-equivalent': 'Pecahan Senilai',
             'frac-compare': 'Membandingkan',
             'frac-addsub': 'Tambah & Kurang',
+            'frac-muldiv': 'Kali & Bagi',
             'frac-simplest': 'Penyederhanaan'
         };
 
@@ -98,6 +99,7 @@ const app = {
         else if (currentSub.startsWith('frac-equivalent')) subName = 'Pecahan Senilai';
         else if (currentSub.startsWith('frac-compare')) subName = 'Membandingkan';
         else if (currentSub.startsWith('frac-addsub')) subName = 'Tambah & Kurang';
+        else if (currentSub.startsWith('frac-muldiv')) subName = 'Kali & Bagi';
         else if (currentSub.startsWith('frac-simplest')) subName = 'Penyederhanaan';
 
         const breadcrumbTitle = subName ? `${topicName} - ${subName}` : topicName;
@@ -115,12 +117,17 @@ const app = {
             const sub = this.state.currentSubtopic || '';
             const prefix = sub.split('-').slice(0, 2).join('-'); // e.g., 'frac-visual'
 
-            if (prefix === 'frac-visual' || prefix === 'frac-compare' || prefix === 'frac-addsub') {
+            if (prefix === 'frac-visual' || prefix === 'frac-compare' || prefix === 'frac-addsub' || prefix === 'frac-muldiv') {
                 if (prefix === 'frac-addsub') {
                     subtopics = [
                         { value: `${prefix}-visual`, label: 'Visual' },
                         { value: `${prefix}-sederhana`, label: 'Sederhana' },
                         { value: `${prefix}-kompleks`, label: 'Kompleks' }
+                    ];
+                } else if (prefix === 'frac-muldiv') {
+                    subtopics = [
+                        { value: `${prefix}-perkalian`, label: 'Perkalian' },
+                        { value: `${prefix}-pembagian`, label: 'Pembagian' }
                     ];
                 } else {
                     subtopics = [
