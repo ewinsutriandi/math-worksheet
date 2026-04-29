@@ -116,7 +116,26 @@ Operations involving mixed numbers.
 
 ---
 
-## 8. Implementation Notes
+## 8. Persentase (Percentage)
+Students practice converting between percentages, fractions, and decimals.
+
+### Level Overview
+This topic focuses on the relationship between parts of a hundred and other numerical representations.
+
+| Type                | Description                                    | Example                                                   |
+| :------------------ | :--------------------------------------------- | :-------------------------------------------------------- |
+| **To Percentage**   | Convert a fraction or decimal to a percentage. | $\frac{3}{5} \rightarrow 60\%$ or $0.45 \rightarrow 45\%$ |
+| **From Percentage** | Convert a percentage to a fraction or decimal. | $25\% \rightarrow \frac{1}{4}$ or $80\% \rightarrow 0.8$  |
+
+### Implementation Notes:
+- **No Proficiency Levels**: This topic has a single mode that covers all conversion types.
+- **Alternating Logic**: Even indices: "To Percentage"; Odd indices: "From Percentage".
+- **Numbers**: Friendly denominators (2, 4, 5, 10, 20, 25, 50). Decimals with 1-2 places.
+
+---
+
+## 9. Implementation Notes
 - **Visuals**: Use SVG for Pie and Bar charts with light grey shading (`#E0E0E0`).
 - **Logic**: Ensure all generated fractions have a valid solution (e.g., for Simplification, GCD must be > 1).
-- **Duplicate Prevention**: Use `f:num/den:topic` as unique identifier.
+- **Duplicate Prevention**: Use `f:num/den:topic` or `p:val:type` as unique identifiers.
+- **Percentages**: For "From Percentage", show both simplest fraction and decimal form in answer key if applicable.

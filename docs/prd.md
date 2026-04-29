@@ -45,19 +45,12 @@ Provide a fast, simple website that allows users to generate and print elementar
 
 ---
 
-## 4. Math Topics & Levels
+## 4. Math Topics
 
-Each topic defines difficulty levels and question ranges.
+The generator currently supports the following curriculum-aligned topics. Detailed levels, specifications, and question logic are maintained in their respective documentation:
 
-| **Aritmatika**  | **Semua Topik** | Dasar, Menengah, Mahir | See: [topic_arithmetic.md](topic_arithmetic.md) |
-| **Pecahan**     | **Visualisasi** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
-|                 | **Senilai**     | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
-|                 | **Membandingkan** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
-|                 | **Tambah & Kurang** | Visual, Sederhana, Kompleks | See: [topic_fraction.md](topic_fraction.md) |
-|                 | **Kali & Bagi** | Perkalian, Pembagian | See: [topic_fraction.md](topic_fraction.md) |
-|                 | **Pecahan Campuran** | Konversi, Tambah/Kurang, Kali/Bagi | See: [topic_fraction.md](topic_fraction.md) |
-| **Persentase**  | **Konversi**    | N/A                    | See: [topic_percentage.md](topic_percentage.md) |
-|                 | **Sederhana**   | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
+*   **Aritmatika**: Penjumlahan, Pengurangan, Perkalian, dan Pembagian (Bagi Kurung). See [topic_arithmetic.md](topic_arithmetic.md).
+*   **Pecahan**: Visualisasi, Senilai, Membandingkan, Sederhanakan, Tambah & Kurang, Kali & Bagi, Pecahan Campuran, serta **Persentase**. See [topic_fraction.md](topic_fraction.md).
 
 ---
 
@@ -206,9 +199,9 @@ As a client-side only application:
 ### Fraction & Decimal Logic
 - **Defining / Visual**: Render fractions as circular pies or rectangular bars.
 - **Equivalent / Simplest Form**: Generate fractions where `gcd(numerator, denominator) > 1` for reduction practice.
-- **Mixed Numbers**: Conversion between improper fractions (e.g., 7/4) and mixed numbers (1 3/4).
-- **Percentages**: Basic conversion (e.g., 0.25 to 25%) and "Percentage of a Number" (e.g., 20% of 150).
-- **Decimals**: Addition/Subtraction with aligned decimal points; multiplication/division with simple factors.
+- **Mixed Numbers**: Conversion between improper fractions (e.g., 7/4) and mixed numbers (1 3/4), with calculation support.
+- **Percentages**: Alternating conversion questions between `Fraction/Decimal -> Percentage` and `Percentage -> Fraction/Decimal`.
+- **Decimals**: Integrated within percentage conversions; future standalone topic for 4 operations.
 
 ### Layout Engine
 - **CSS Grid/Flexbox**: Used for question alignment to ensure consistent column width.

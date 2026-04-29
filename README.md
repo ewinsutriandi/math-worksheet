@@ -6,14 +6,22 @@ A minimalist, printer-friendly math worksheet generator for elementary students,
 
 ## Key Features
 
-- **Aritmatika (Arithmetic)**: Multi-digit operations with vertical layout and "Bagi Kurung" (long division) support.
-    - **Dasar (Basic)**: 1-digit foundations and simple 2-digit combinations.
-    - **Menengah (Intermediate)**: 2-digit with regrouping/borrowing and multiplication.
-    - **Mahir (Advanced)**: 3-digit operations, double regrouping, and complex division.
-- **Pecahan (Fractions)**: Visualizing, identifying equivalent fractions, and simplifying.
-- **Printer-Optimized**: Automatic clean layout for A4 printing with dedicated answer key pages.
-- **Interactive UI**: Modern sidebar configuration with chips-based selection for numbers and topics.
-- **Bahasa Indonesia**: All labels, topics, and categories are localized for the Indonesian curriculum.
+- **Modern Single-Page Application (SPA)**: Fast, serverless, and functions entirely in your browser.
+- **Printer-Optimized**: Automatic A4 layout optimization with high-contrast text and dedicated answer key pages.
+- **Interactive Configuration**: Modern sidebar UI using "chips" for quick topic and difficulty selection.
+- **Curriculum Aligned**: Localized for Indonesia using standard math terminology (e.g., *Bagi Kurung*, *Pecahan Campuran*).
+
+## Covered Topics
+
+### Aritmatika (Arithmetic)
+- **Dasar**: 1-digit foundations and simple 2-digit combinations.
+- **Menengah**: 2-digit with regrouping/borrowing and multiplication.
+- **Mahir**: 3-digit operations, double regrouping, and complex "Bagi Kurung" (long division).
+
+### Pecahan (Fractions)
+- **Foundations**: Visualizing fractions, identifying equivalent parts, and simplifying.
+- **Operations**: Addition, Subtraction, Multiplication, and Division of proper fractions.
+- **Advanced**: Operations with Mixed Numbers (Pecahan Campuran) and Percentage conversions.
 
 ## Tech Stack
 
