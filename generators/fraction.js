@@ -1,4 +1,8 @@
 const fractionGenerator = {
+    init: function (utils) {
+        this.utils.getRandomInt = utils.getRandomInt;
+        this.utils.gcd = utils.gcd;
+    },
     generate: function (subtopic, count) {
         const problems = [];
         const [topic, sub, level] = subtopic.split('-'); // e.g., 'frac-visual-sederhana'
@@ -19,6 +23,11 @@ const fractionGenerator = {
                 problem = this.generateAddSubProblem(level, problems.length);
             } else if (sub === 'muldiv') {
                 problem = this.generateMulDivProblem(level, problems.length);
+            } else if (sub === 'mixed') {
+                problem = this.generateMixedProblem(level, problems.length);
+            } else if (sub === 'percent') {
+                problem = percentageGenerator.generate('percent', count);
+                return problem; // percentageGenerator returns array
             } else if (sub === 'simplest') {
                 problem = this.generateSimplestFormProblem(level);
             } else {
@@ -487,6 +496,145 @@ const fractionGenerator = {
                 </div>
             `,
             answerHTML: finalAns
+        };
+    },
+
+    formatMixed: function (whole, n, d) {
+        if (whole === 0) return this.formatFraction(n, d);
+        return `
+            <div class="mixed-number">
+                <span class="whole-part">${whole}</span>
+                ${this.formatFraction(n, d)}
+            </div>
+        `;
+    },
+
+    generateMixedProblem: function (level, index = 0) {
+        let n1, d1, w1, n2, d2, w2, op, symbol;
+
+        if (level === 'konversi') {
+            const toMixed = index % 2 === 0;
+            d1 = this.utils.getRandomInt(2, 12);
+            w1 = this.utils.getRandomInt(1, 10);
+            n1 = this.utils.getRandomInt(1, d1 - 1);
+
+            const improperN = w1 * d1 + n1;
+
+            if (toMixed) {
+                return {
+                    questionHTML: `
+                        <div class="fraction-problem">
+                            <p>Ubahlah pecahan berikut menjadi pecahan campuran:</p>
+                            <div style="font-size: 1.5rem; margin-top: 10px;">
+                                ${this.formatFraction(improperN, d1)} = <span style="display:inline-block; width: 60px; height: 1px; border-bottom: 2px dashed #bbb; margin-left: 5px;"></span>
+                            </div>
+                        </div>
+                    `,
+                    answerHTML: this.formatMixed(w1, n1, d1)
+                };
+            } else {
+                return {
+                    questionHTML: `
+                        <div class="fraction-problem">
+                            <p>Ubahlah pecahan campuran berikut menjadi pecahan biasa:</p>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 10px;">
+                                ${this.formatMixed(w1, n1, d1)} = <span style="display:inline-block; width: 40px; height: 1px; border-bottom: 2px dashed #bbb;"></span>
+                            </div>
+                        </div>
+                    `,
+                    answerHTML: this.formatFraction(improperN, d1)
+                };
+            }
+        }
+
+        // AddSub or MulDiv
+        const isAddSub = level === 'addsub';
+        const isAddition = isAddSub && index % 2 === 0;
+        const isMultiplication = !isAddSub && index % 2 === 0;
+
+        if (isAddSub) {
+            symbol = isAddition ? '+' : '-';
+        } else {
+            symbol = isMultiplication ? '×' : '÷';
+        }
+
+        // Operand variety: 0 = Mixed op Mixed, 1 = Mixed op Proper, 2 = Proper op Mixed
+        const variety = index % 3;
+
+        if (variety === 0) {
+            w1 = this.utils.getRandomInt(1, 4);
+            w2 = this.utils.getRandomInt(1, 4);
+        } else if (variety === 1) {
+            w1 = this.utils.getRandomInt(1, 4);
+            w2 = 0;
+        } else {
+            w1 = 0;
+            w2 = this.utils.getRandomInt(1, 4);
+        }
+
+        d1 = this.utils.getRandomInt(2, 8);
+        n1 = this.utils.getRandomInt(1, d1 - 1);
+        d2 = this.utils.getRandomInt(2, 8);
+        n2 = this.utils.getRandomInt(1, d2 - 1);
+
+        const impN1 = w1 * d1 + n1;
+        const impN2 = w2 * d2 + n2;
+
+        let resN, resD;
+        if (isAddSub) {
+            if (isAddition) {
+                resN = impN1 * d2 + impN2 * d1;
+                resD = d1 * d2;
+            } else {
+                // Ensure positive result for subtraction
+                if (impN1 * d2 <= impN2 * d1) {
+                    // Swap
+                    let tw = w1; w1 = w2; w2 = tw;
+                    let tn = n1; n1 = n2; n2 = tn;
+                    let td = d1; d1 = d2; d2 = td;
+                }
+                const newImpN1 = w1 * d1 + n1;
+                const newImpN2 = w2 * d2 + n2;
+                resN = newImpN1 * d2 - newImpN2 * d1;
+                resD = d1 * d2;
+            }
+        } else {
+            if (isMultiplication) {
+                resN = impN1 * impN2;
+                resD = d1 * d2;
+            } else {
+                resN = impN1 * d2;
+                resD = d1 * n2; // Corrected division: impN1/d1 / impN2/d2 = impN1*d2 / d1*impN2
+            }
+        }
+
+        const commonGCD = this.utils.gcd(resN, resD);
+        const finalN = resN / commonGCD;
+        const finalD = resD / commonGCD;
+
+        const resWhole = Math.floor(finalN / finalD);
+        const resRem = finalN % finalD;
+
+        let answerHTML;
+        if (resWhole > 0 && resRem > 0) {
+            answerHTML = this.formatMixed(resWhole, resRem, finalD);
+        } else if (resWhole > 0) {
+            answerHTML = `<span style="font-size: 1.2rem; font-weight: bold;">${resWhole}</span>`;
+        } else {
+            answerHTML = this.formatFraction(resRem, finalD);
+        }
+
+        return {
+            questionHTML: `
+                <div class="fraction-problem" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    ${this.formatMixed(w1, n1, d1)}
+                    <span style="font-size: 1.2rem; font-weight: bold;">${symbol}</span>
+                    ${this.formatMixed(w2, n2, d2)}
+                    <span style="font-size: 1.2rem; font-weight: bold;">=</span>
+                    <div style="width: 40px; height: 1px; border-bottom: 2px solid #bbb; margin-top: 15px;"></div>
+                </div>
+            `,
+            answerHTML: answerHTML
         };
     },
 };

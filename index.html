@@ -64,6 +64,12 @@
                         <button class="topic-card" onclick="app.selectTopic('fraction', 'frac-muldiv')">
                             <h3>Kali & Bagi</h3>
                         </button>
+                        <button class="topic-card" onclick="app.selectTopic('fraction', 'frac-mixed')">
+                            <h3>Pecahan Campuran</h3>
+                        </button>
+                        <button class="topic-card" onclick="app.selectTopic('fraction', 'frac-percent')">
+                            <h3>Persentase</h3>
+                        </button>
                     </div>
                 </section>
             </div>
@@ -84,7 +90,7 @@
                     <button id="sidebar-close" class="mobile-only close-btn" onclick="app.toggleSidebar()">✕</button>
                 </div>
 
-                <div class="config-group">
+                <div id="subtopic-selection" class="config-group">
                     <label>Sub-Topik</label>
                     <div id="subtopic-chips" class="chips-container">
                         <!-- Populated by JS -->
@@ -173,6 +179,7 @@
 
     <script src="generators/fraction.js"></script>
     <script src="generators/arithmetic.js"></script>
+    <script src="generators/percentage.js"></script>
     <script src="app.js"></script>
 </body>
 

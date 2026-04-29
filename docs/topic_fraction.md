@@ -99,9 +99,24 @@ Students perform multiplication or division of fractions.
     - For Division: $n_1/d_1 \div n_2/d_2 = (n_1 \times d_2) / (d_1 \times n_2)$.
 - **Simplified cases**: To force a "must simplify" result, ensure either $(n_1, d_2)$ or $(n_2, d_1)$ share a common factor (cross-simplification) OR $(n_1, d_1)$ or $(n_2, d_2)$ are not in simplest form.
 
+## 7. Pecahan Campuran (Mixed Numbers)
+Operations involving mixed numbers.
+
+| Level             | Description                                   | Example                                                                            |
+| :---------------- | :-------------------------------------------- | :--------------------------------------------------------------------------------- |
+| **Konversi**      | Convert between Mixed and Improper fractions. | $3 \frac{1}{2} \rightarrow \frac{7}{2}$ or $\frac{5}{3} \rightarrow 1 \frac{2}{3}$ |
+| **Tambah/Kurang** | Addition and subtraction of mixed numbers.    | $1 \frac{1}{2} + 2 \frac{1}{4}$                                                    |
+| **Kali/Bagi**     | Multiplication and division of mixed numbers. | $2 \frac{1}{3} \times 1 \frac{1}{5}$                                               |
+
+### Implementation Notes:
+- **Konversi**: Toggle 50/50 between Mixed $\rightarrow$ Improper and Improper $\rightarrow$ Mixed.
+- **Tambah/Kurang**: Alternate between addition and subtraction. 50% chance for one operand to be a proper fraction. Use denominators up to 10.
+- **Kali/Bagi**: Convert to improper for calculation. 50% chance for one operand to be a proper fraction. Keep numbers reasonable (denominators $\le 8$, whole parts $\le 4$).
+- **Simplification**: Answers should be in simplest mixed number form.
+
 ---
 
-## 7. Implementation Notes
+## 8. Implementation Notes
 - **Visuals**: Use SVG for Pie and Bar charts with light grey shading (`#E0E0E0`).
 - **Logic**: Ensure all generated fractions have a valid solution (e.g., for Simplification, GCD must be > 1).
 - **Duplicate Prevention**: Use `f:num/den:topic` as unique identifier.

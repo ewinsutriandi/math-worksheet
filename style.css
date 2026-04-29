@@ -726,3 +726,17 @@ button.btn-secondary:hover {
         transform-origin: top center;
     }
 }
+
+/* Mixed Number Styles */
+.mixed-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    vertical-align: middle;
+}
+
+.whole-part {
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1;
+}

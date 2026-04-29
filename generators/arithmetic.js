@@ -1,4 +1,7 @@
 const arithmeticGenerator = {
+    init: function (utils) {
+        this.utils.getRandomInt = utils.getRandomInt;
+    },
     generate: function (subtopic, count) {
         let problems = [];
         const [op, level] = subtopic.split('-');

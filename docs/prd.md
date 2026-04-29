@@ -55,6 +55,8 @@ Each topic defines difficulty levels and question ranges.
 |                 | **Membandingkan** | Sederhana, Kompleks    | See: [topic_fraction.md](topic_fraction.md)   |
 |                 | **Tambah & Kurang** | Visual, Sederhana, Kompleks | See: [topic_fraction.md](topic_fraction.md) |
 |                 | **Kali & Bagi** | Perkalian, Pembagian | See: [topic_fraction.md](topic_fraction.md) |
+|                 | **Pecahan Campuran** | Konversi, Tambah/Kurang, Kali/Bagi | See: [topic_fraction.md](topic_fraction.md) |
+| **Persentase**  | **Konversi**    | N/A                    | See: [topic_percentage.md](topic_percentage.md) |
 |                 | **Sederhana**   | Dasar, Mahir           | See: [topic_fraction.md](topic_fraction.md)   |
 
 ---
